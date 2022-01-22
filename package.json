@@ -14,12 +14,11 @@
   "homepage": "https://icns.ml",
   "scripts": {
     "types": "tsc -d --skipLibCheck --emitDeclarationOnly --allowJs",
-    "prebuild": "npm run lint:fix",
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "lint": "ts-standard --verbose",
-    "lint:fix": "ts-standard --fix --verbose",
-    "deploy": "npm run lint:fix && vercel --prod"
+    "lint": "ts-standard api/*.ts",
+    "lint:fix": "ts-standard --fix api/*.ts",
+    "deploy": "vercel --prod"
   },
   "devDependencies": {
     "@types/marked": "4.0.1",
