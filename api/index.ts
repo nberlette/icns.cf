@@ -14,7 +14,7 @@ const randomIcons: any[] = Object
   .sort((a, b) => Math.random() > 0.5 ? -1 : 1)
   .slice(0, randomIconsCount)
 
-const homepage: string = marked(`
+const homepage: string = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -127,22 +127,13 @@ ${randomIcons.map((icon: SimpleIcon): string => {
 
 [MIT](https://mit-license.org) © ${new Date().getFullYear()} [@nberlette](https://github.com/nberlette/icns.ml) • not affiliated with [SimpleIcons](https://simpleicons.org)
 
-
 </div>
-<br>
-<script type="text/javascript">
-</script>
+</body></html>`;
 
-</body></html>`, {
-  baseUrl: "https://icns.ml",
-  gfm: true,
-  headerIds: true,
-  xhtml: true,
-  smartLists: true,
-  smartypants: true
-});
-
-export default async function handler (req: Request, res: Response): Promise<any> {
+export default async function handler (req: Request, res: Response): Promise<Response> {
   res.setHeader('Content-Type', 'text/html;charset=utf-8');
-  return res.status(200).send(homepage);
+  return res.status(200).send(marked(homepage, {
+    baseUrl: "https://icns.ml",
+    gfm: true
+  }));
 }

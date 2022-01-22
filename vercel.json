@@ -6,15 +6,15 @@
   },
   "routes": [
     {
-      "src": "^/(?:(?<color>[^/]+)[/])?(?<name>[^\\.]+)(?:\\.(?<type>svg|png))?[/]?(?:[?].*)?",
-      "dest": "api/render.ts?slug=$name&color=$color&type=$type",
+      "src": "^/(?:(?<color>[^/]+)[/])?(?<name>[^\\.]+)(?:\\.(?<type>svg|png))?[/]?[?]?(?<query>.*)",
+      "dest": "api/render.ts?slug=$name&color=$color&type=$type&$query",
       "headers": {
 	"Cache-Control": "public, max-age=604800, s-maxage=31536000, stale-while-revalidate=604800, stale-if-error=604800"
       }
     },
     {
-      "src": "^/(?<name>[^-]+)(?:[-](?<color>[^\\.]+))?(?:\\.(?<type>svg|png))?[/]?(?:[?].*)?",
-      "dest": "api/render.ts?slug=$name&color=$color&type=$type",
+      "src": "^/(?<name>[^-]+)(?:[-](?<color>[^\\.]+))?(?:\\.(?<type>svg|png))?[/]?[?]?(?<query>.*)?",
+      "dest": "api/render.ts?slug=$name&color=$color&type=$type&$query",
       "headers": {
         "Cache-Control": "public, max-age=604800, s-maxage=31536000, stale-while-revalidate=604800, stale-if-error=604800"
       }
@@ -34,6 +34,7 @@
       "src": "^/(.*)(?:[?](.*))?",
       "dest": "api/index.ts?q=$1&$2",
       "headers": {
+        "Content-Type": "text/html;charset=utf-8",
         "Cache-Control": "public, max-age=600, s-maxage=900, stale-while-revalidate=60, stale-if-error=86400"
       }
     }
