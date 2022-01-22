@@ -7,14 +7,14 @@
   "routes": [
     {
       "src": "^/(?:(?<color>[^/]+)[/])?(?<name>[^\\.]+)(?:\\.(?<type>svg|png))?",
-      "dest": "api/[[...slug]].svg.ts?slug=$name&color=$color&type=$type",
+      "dest": "api/icon.svg.ts?slug=$name&color=$color&type=$type",
       "headers": {
 	"Cache-Control": "public, max-age=604800, s-maxage=31536000, stale-while-revalidate=604800, stale-if-error=604800"
       }
     },
     {
       "src": "^/(?<name>[^-]+)(?:[-](?<color>[^\\.]+))?(?:\\.(?<type>svg|png))?",
-      "dest": "api/[[...slug]].svg.ts?slug=$name&color=$color&type=$type",
+      "dest": "api/icon.svg.ts?slug=$name&color=$color&type=$type",
       "headers": {
         "Cache-Control": "public, max-age=604800, s-maxage=31536000, stale-while-revalidate=604800, stale-if-error=604800"
       }
