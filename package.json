@@ -1,19 +1,39 @@
 {
   "name": "icns.ml",
   "version": "0.0.1",
+  "author": {
+    "name": "Nicholas Berlette",
+    "email": "nick@berlette.com",
+    "url": "https://n.berlette.com"
+  },
+  "license": "MIT",
+  "private": false,
+  "repository": "nberlette/icns.ml",
+  "readme": "https://github.com/nberlette/icns.ml#readme",
+  "bugs": "https://github.com/nberlette/icns.ml/issues",
+  "homepage": "https://icns.ml",
   "scripts": {
-    "compile": "tsc",
-    "watch": "tsc --watch"
+    "types": "tsc -d --skipLibCheck --emitDeclarationOnly --allowJs",
+    "prebuild": "npm run lint:fix",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "lint": "ts-standard --verbose",
+    "lint:fix": "ts-standard --fix --verbose",
+    "deploy": "npm run lint:fix && vercel --prod"
   },
   "devDependencies": {
-    "@types/marked": "~4.0.1",
+    "@types/marked": "4.0.1",
+    "@types/node": "17.0.10",
     "@types/tinycolor2": "1.4.3",
+    "@typescript-eslint/parser": "^4.0.0",
     "@vercel/node": "1.12.1",
-    "typescript": "^4.5.4"
+    "eslint": "<8.0.0",
+    "ts-standard": "11.0.0",
+    "typescript": "4.5.4"
   },
   "dependencies": {
-    "marked": "~4.0.10",
-    "simple-icons": "~6.7.0",
-    "tinycolor2": "~1.4.2"
+    "marked": "4.0.10",
+    "simple-icons": "latest",
+    "tinycolor2": "1.4.2"
   }
 }
