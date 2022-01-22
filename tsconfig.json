@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "strict": true,
+    "strict": false,
     "esModuleInterop": true,
     "target": "ES2018",
     "module": "CommonJS",
@@ -13,10 +13,14 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "noEmitOnError": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "removeComments": true,
-    "preserveConstEnums": true
+    "preserveConstEnums": true,
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "checkJs": false,
+    "skipLibCheck": true
   },
   "include": [
     "api/**/*"
