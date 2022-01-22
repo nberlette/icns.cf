@@ -4,14 +4,17 @@ import type {
 	VercelRequestQuery as RequestQuery 
 } from '@vercel/node';
 import icons, { SimpleIcon } from 'simple-icons';
-import tc from 'tinycolor2';
 import { marked } from 'marked';
 
-const randomIconsCount = 10;
-try { delete icons.Get; } catch {}
-const randomIcons: any[] = Object.values(icons).sort((a,b) => Math.random() > 0.5 ? -1 : 1).slice(0, randomIconsCount)
+try { delete icons.Get; } catch { }
 
-const homepage: string = `
+const randomIconsCount = 10;
+const randomIcons: any[] = Object
+  .values(icons)
+  .sort((a, b) => Math.random() > 0.5 ? -1 : 1)
+  .slice(0, randomIconsCount)
+
+const homepage: string = marked(`
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,12 +52,26 @@ pre.success::after {
   color: var(--accents-1) !important;
   border-color: var(--accents-7) !important;
 }
+pre.url {
+  border-radius:6px;
+  border:2px solid #ccc;
+  background-color:#eee;
+  padding: 6px 10px;
+  font-family: 'Operator Mono Lig', 'Operator Mono', 'Dank Mono', 'MonoLisa', 'Fira Code', monospace;
+  font-size: 18px;
+  cursor:pointer;
+  width:90%;
+  transition: all 0.4s ease-in;
+}
+pre.url.success, .success pre.url {
+  border-color: var(--geist-success);
+}
 </style>
 </head>
 <body>  
 <div align=center>
   <h1><img src="https://icns.ml/simpleicons.svg" width="32" alt="SimpleIcons" /> <code>icns.ml</code></h1>
-  <p><h4>The <a href="https://simpleicons.org" target="_blank" rel="noopener noreferrer">simpleicons</a> API + Vercel's Edge CDN.</h4></p>
+  <p><h3><a href="https://simpleicons.org" target="_blank" rel="noopener noreferrer">SimpleIcons</a> + Vercel's Edge CDN.</h3></p>
 </div>
 <br>
 
@@ -81,19 +98,16 @@ pre.success::after {
 
 <table width="100%" cellpadding="2" cellspacing="2" class="zi-table">
 ${randomIcons.map((icon: SimpleIcon): string => {
-        let iconUrl = `https://icns.ml/${icon.slug}.svg`;
-        return `<tr><td width="72">
+  let iconUrl = `https://icns.ml/${icon.slug}.svg`;
+  return `
+      <tr>
+        <td width="72">
         <a href="${iconUrl}" target="_blank" rel="noopener noreferrer"><img src="${iconUrl}" alt="${icon.title}" aria-label="${icon.title}" width="72" height="72" class="icon" id="icon-${icon.slug}" /></a>
         </td>
         <td>
-            <a href="javascript:;" id="copy-${icon.slug}" class="copyurl" data-url="${iconUrl}" title="Click to copy URL to clipboard" style="position:relative" onclick="navigator.clipboard.writeText(this.getAttribute('data-url')).then(()=>{this.firstChild.classList.toggle('success'); setTimeout(() => this.firstChild.classList.toggle('success', false), 2000); alert('Copied to clipboard!'); })">
-	    <pre
-                id="url-${icon.slug}"
-                class="zi-note url"
-                style="border-radius:6px;border:2px solid #ccc;background-color:#eee;padding: 6px 10px;font-family:'Operator Mono Lig', 'Operator Mono', 'Dank Mono', 'MonoLisa', 'Fira Code', monospace;font-size:14px;cursor:pointer;width:90%;transition:all 0.4s ease-in;">${iconUrl}</pre>
-	    </a>
-	</td>
-</tr>`;
+            <a href="javascript:;" id="copy-${icon.slug}" class="copyurl" data-url="${iconUrl}" title="Click to copy URL to clipboard" style="position:relative" onclick="navigator.clipboard.writeText(this.getAttribute('data-url')).then(()=>{this.firstChild.classList.toggle('success'); setTimeout(() => this.firstChild.classList.toggle('success', false), 2000); alert('Copied to clipboard!'); })"><pre id="url-${icon.slug}" class="zi-note url">${iconUrl}</pre></a>
+	      </td>
+      </tr>`;
 }).join('\n')}
 </table>
 
@@ -101,7 +115,7 @@ ${randomIcons.map((icon: SimpleIcon): string => {
 </div>
 <div align="center" class="zi-card zi-dark dark">
 
-[MIT](https://mit-license.org) © 2022 [@nberlette](https://github.com/nberlette/icns.ml) • not affiliated with [SimpleIcons](https://simpleicons.org)
+[MIT](https://mit-license.org) © ${new Date().getFullYear()} [@nberlette](https://github.com/nberlette/icns.ml) • not affiliated with [SimpleIcons](https://simpleicons.org)
 
 
 </div>
@@ -109,9 +123,16 @@ ${randomIcons.map((icon: SimpleIcon): string => {
 <script type="text/javascript">
 </script>
 
-</body></html>`;
+</body></html>`, {
+  baseUrl: "https://icns.ml",
+  gfm: true,
+  headerIds: true,
+  xhtml: true,
+  smartLists: true,
+  smartypants: true
+});
 
 export default async function handler (req: Request, res: Response): Promise<any> {
   res.setHeader('Content-Type', 'text/html;charset=utf-8');
-  return res.status(200).send(marked(homepage));
+  return res.status(200).send(homepage);
 }
