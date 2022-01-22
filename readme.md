@@ -39,6 +39,6 @@ https://icns.ml/adobe
 
 <div align=center>
 
-© 2022 [Nicholas Berlette](https://github.com/nberlette/icns) ~ [MIT](https://mit-license.org) • not affiliated with [Simple Icons](https://simpleicons.org)
+© 2022 [Nicholas Berlette](https://github.com/nberlette/icns.ml) ~ [MIT](https://mit-license.org) • not affiliated with [Simple Icons](https://simpleicons.org)
 
 </div>
