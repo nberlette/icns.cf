@@ -1,0 +1,25 @@
+{
+  "functions": {
+    "api/*.ts": {
+      "runtime": "@vercel/node"
+    }
+  },
+  "routes": [
+    {
+      "src": "^/(?:(?<color>[^/]+)[/])?(?<name>[^\\.]+)(?:\\.(?<type>svg|png))?",
+      "dest": "api/[[...slug]].svg.ts?name=$name&color=$color&type=$type",
+      "headers": {
+	"Cache-Control": "public, max-age=60, s-maxage=60"
+      },
+      "continue": true
+    },
+    {
+      "src": "^/favicon\\.ico",
+      "dest": "https://n.berlette.com/logo.svg",
+      "continue": false
+    },
+    {
+      "handle": "filesystem"
+    }
+  ]
+}
