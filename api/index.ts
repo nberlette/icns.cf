@@ -69,8 +69,6 @@ pre.success::after {
   https://icns.ml/ [:color] / :name [.:type]
 </pre>
 
-> Example of the recommended usage: **\`https://icns.ml/github.svg\`**
-
 - **\`:name\`**   · **\`required\`** · alphanumeric, no spaces, dashes, no special chars.  
 - **\`:color\`** · \`optional\` · default is brand's primary color.  
 - **\`:type\`**   · \`optional\` · default is \`svg\`.    
