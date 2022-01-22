@@ -1,0 +1,25 @@
+image: nberlette/gitpod-enhanced
+
+tasks:
+  - init: pnpm install --global vercel tsm typescript simple-icons > /dev/null
+    before: pnpm install
+
+ports:
+  - port: 3000-5000
+    onOpen: notify
+    visibility: public
+
+github:
+  prebuilds:
+    master: true
+    branches: true
+    addLabel: true
+    addBadge: true
+    addCheck: true
+
+vscode:
+  extensions:
+    - christian-kohler.npm-intellisense
+    - christian-kohler.path-intellisense
+    - editorconfig.editorconfig
+    - esbenp.prettier-vscode
