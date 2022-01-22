@@ -1,20 +1,20 @@
-import type { 
-	VercelResponse as Response, 
-	VercelRequest as Request, 
-	VercelRequestQuery as RequestQuery 
-} from '@vercel/node';
-import icons, { SimpleIcon } from 'simple-icons';
-import { marked } from 'marked';
-
-try { delete icons.Get; } catch { }
-
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const simple_icons_1 = __importDefault(require("simple-icons"));
+const marked_1 = require("marked");
+try {
+    delete simple_icons_1.default.Get;
+}
+catch (_a) { }
 const randomIconsCount = 10;
-const randomIcons: any[] = Object
-  .values(icons)
-  .sort((a, b) => Math.random() > 0.5 ? -1 : 1)
-  .slice(0, randomIconsCount)
-
-const homepage: string = `
+const randomIcons = Object
+    .values(simple_icons_1.default)
+    .sort((a, b) => Math.random() > 0.5 ? -1 : 1)
+    .slice(0, randomIconsCount);
+const homepage = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -107,9 +107,9 @@ pre.url.success, .success pre.url {
 <div class="zi-card">
 
 <table width="100%" cellpadding="2" cellspacing="2" class="zi-table">
-${randomIcons.map((icon: SimpleIcon): string => {
-  let iconUrl = `https://icns.ml/${icon.slug}.svg`;
-  return `
+${randomIcons.map((icon) => {
+    let iconUrl = `https://icns.ml/${icon.slug}.svg`;
+    return `
       <tr>
         <td width="72">
         <a href="${iconUrl}" target="_blank" rel="noopener noreferrer"><img src="${iconUrl}" alt="${icon.title}" aria-label="${icon.title}" width="72" height="72" class="icon" id="icon-${icon.slug}" /></a>
@@ -129,8 +129,8 @@ ${randomIcons.map((icon: SimpleIcon): string => {
 
 </div>
 </body></html>`;
-
-export default async function handler (req: Request, res: Response): Promise<Response> {
-  res.setHeader('Content-Type', 'text/html;charset=utf-8');
-  return res.status(200).send(marked(homepage));
+async function handler(req, res) {
+    res.setHeader('Content-Type', 'text/html;charset=utf-8');
+    return res.status(200).send((0, marked_1.marked)(homepage));
 }
+exports.default = handler;
