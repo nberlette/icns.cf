@@ -109,8 +109,7 @@ ${randomIcons.map((icon: SimpleIcon): string => {
 </div>
 <div align="center" class="zi-card dark">
 
-[MIT License](https://mit-license.org) · © 2022 [Nicholas Berlette](https://github.com/nberlette/icns)   
-
+[MIT](https://mit-license.org) • © 2022 [Nicholas Berlette](https://github.com/nberlette/icns.ml) • not affiliated with [Simple Icons](https://simpleicons.org)
 </div>
 <br>
 <script type="text/javascript">

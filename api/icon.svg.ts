@@ -114,8 +114,6 @@ export default async function handler (req: Request, res: Response): Promise<any
   let _type: string = type || 'svg';
   let _color: string = color || 'default';
 
-  //if (~slug.indexOf('.')) [slug,  type] = slug.split('.') || [_slug, _type];
-  //if (~slug.indexOf('/')) [color, slug] = slug.split('/') || [_color, slug];
   if (~_slug.indexOf('-')) [slug, color] = _slug.split('-') || [slug, color];
 
   let icon: SimpleIcon = icons.Get(slug);
