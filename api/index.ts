@@ -1,7 +1,6 @@
 import type { 
 	VercelResponse as Response, 
-	VercelRequest as Request, 
-	VercelRequestQuery as RequestQuery 
+	VercelRequest as Request
 } from '@vercel/node';
 import icons, { SimpleIcon } from 'simple-icons';
 import { marked } from 'marked';

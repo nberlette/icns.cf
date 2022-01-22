@@ -4,7 +4,7 @@ import type {
 } from '@vercel/node';
 import icons, { SimpleIcon } from 'simple-icons';
 import tc from 'tinycolor2';
-import { preflight, toSVG, toSlug, QueryParams } from '../src/utils';
+import { preflight, toSVG, toSlug, QueryParams } from './_utils';
 
 const fallback: string = 'simpleicons';
 
@@ -35,4 +35,3 @@ export default async function handler (req: Request, res: Response): Promise<any
   const fill: string = (tc(color).isValid() && color !== 'default' ? color : icon.hex);
   return res.status(200).send(toSVG(icon.svg, { fill }));
 }
-
