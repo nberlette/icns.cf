@@ -46,11 +46,18 @@ pre.success::after {
   transform:translate(0,-50%);
   margin: 0 1em; 
 }
-.zi-card { margin: 1em 0 !important; }
+.zi-card { margin: 2rem 0 !important; }
 .zi-dark {
   background: var(--accents-8) !important;
   color: var(--accents-1) !important;
   border-color: var(--accents-7) !important;
+}
+.footer.zi-dark, .footer.dark {
+  color: var(--accents-1) !important;
+}
+.footer.zi-dark > a, .footer.dark > a {
+  color: #fff !important;
+  text-decoration: underline;
 }
 pre.url {
   border-radius:6px;
@@ -82,8 +89,6 @@ pre.url.success, .success pre.url {
 
 <div class="zi-card pin">
 
-## Schema  
-
 <pre class="zi-dark">
   https://icns.ml/ :name [-:color] [.:type]
 </pre>
@@ -93,9 +98,9 @@ pre.url.success, .success pre.url {
 
 - **\`:name\`**   · **\`required\`** · alphanumeric, no spaces, dashes, no special chars.  
 - **\`:color\`** · \`optional\` · default is brand's primary color.  
-- **\`:type\`**   · \`optional\` · default is \`svg\`.    
+- **\`:type\`**   · \`optional\` · default is \`svg\`. coming soon: \`png\`  
 
-> Example of the recommended usage: **\`https://icns.ml/github.svg\`**
+> Examples: [**\`https://icns.ml/github.svg\`**](https://icns.ml/github.svg) or [**\`https://icns.ml/ffcc00/github.svg\`**](https://icns.ml/ffcc00/github.svg)
 
 </div>
 
@@ -118,7 +123,7 @@ ${randomIcons.map((icon: SimpleIcon): string => {
 
 
 </div>
-<div align="center" class="zi-card zi-dark dark">
+<div align="center" class="zi-card zi-dark dark footer">
 
 [MIT](https://mit-license.org) © ${new Date().getFullYear()} [@nberlette](https://github.com/nberlette/icns.ml) • not affiliated with [SimpleIcons](https://simpleicons.org)
 
