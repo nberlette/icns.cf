@@ -43,6 +43,12 @@ pre.success::after {
   transform:translate(0,-50%);
   margin: 0 1em; 
 }
+.zi-card { margin: 1em 0 !important; }
+.zi-dark {
+  background: var(--accents-8) !important;
+  color: var(--accents-1) !important;
+  border-color: var(--accents-7) !important;
+}
 </style>
 </head>
 <body>  
@@ -68,20 +74,8 @@ pre.success::after {
 - **\`:name\`**   · **\`required\`** · alphanumeric, no spaces, dashes, no special chars.  
 - **\`:color\`** · \`optional\` · default is brand's primary color.  
 - **\`:type\`**   · \`optional\` · default is \`svg\`.    
-- Specify just the logo slug and it will be filled with the brand color.  
 
-</div>
-<div class="zi-card">
-
-### Schema Examples
-
-<pre class="zi-dark">
-https://icns.ml/audi.svg
-https://icns.ml/twitter-white.svg
-https://icns.ml/white/twitter.svg
-https://icns.ml/ffffff/twitter.svg
-https://icns.ml/adobe
-</pre> 
+> Example of the recommended usage: **\`https://icns.ml/github.svg\`**
 
 </div>
 
@@ -107,9 +101,11 @@ ${randomIcons.map((icon: SimpleIcon): string => {
 
 
 </div>
-<div align="center" class="zi-card dark">
+<div align="center" class="zi-card zi-dark dark">
 
-[MIT](https://mit-license.org) • © 2022 [Nicholas Berlette](https://github.com/nberlette/icns.ml) • not affiliated with [Simple Icons](https://simpleicons.org)
+[MIT](https://mit-license.org) © 2022 [@nberlette](https://github.com/nberlette/icns.ml) • not affiliated with [SimpleIcons](https://simpleicons.org)
+
+
 </div>
 <br>
 <script type="text/javascript">
