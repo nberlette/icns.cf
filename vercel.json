@@ -34,7 +34,6 @@
       "src": "^/(.*)(?:[?](.*))?",
       "dest": "api/index.ts?q=$1&$2",
       "headers": {
-        "Content-Type": "text/html;charset=utf-8",
         "Cache-Control": "public, max-age=600, s-maxage=900, stale-while-revalidate=60, stale-if-error=86400"
       }
     }
