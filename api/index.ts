@@ -107,18 +107,7 @@ pre.url.success, .success pre.url {
 <div class="zi-card">
 
 <table width="100%" cellpadding="2" cellspacing="2" class="zi-table">
-${randomIcons.map((icon: SimpleIcon): string => {
-  let iconUrl = `https://icns.ml/${icon.slug}.svg`;
-  return `
-      <tr>
-        <td width="72">
-        <a href="${iconUrl}" target="_blank" rel="noopener noreferrer"><img src="${iconUrl}" alt="${icon.title}" aria-label="${icon.title}" width="72" height="72" class="icon" id="icon-${icon.slug}" /></a>
-        </td>
-        <td>
-            <a href="javascript:;" id="copy-${icon.slug}" class="copyurl" data-url="${iconUrl}" title="Click to copy URL to clipboard" style="position:relative" onclick="navigator.clipboard.writeText(this.getAttribute('data-url')).then(()=>{this.firstChild.classList.toggle('success'); setTimeout(() => this.firstChild.classList.toggle('success', false), 2000); alert('Copied to clipboard!'); })"><pre id="url-${icon.slug}" class="zi-note url">${iconUrl}</pre></a>
-	      </td>
-      </tr>`;
-}).join('\n')}
+{{randomIcons}}
 </table>
 
 
@@ -131,6 +120,22 @@ ${randomIcons.map((icon: SimpleIcon): string => {
 </body></html>`;
 
 export default async function handler (req: Request, res: Response): Promise<Response> {
-  res.setHeader('Content-Type', 'text/html;charset=utf-8');
-  return res.status(200).send(marked(homepage));
+  res.setHeader('Content-Type', 'text/html');
+  return res.status(200).send(
+    marked(homepage)
+      .replace('{{randomIcons}}', randomIcons.map(
+        (icon: SimpleIcon): string => {
+          let iconUrl = `https://icns.ml/${icon.slug}.svg`;
+          return `
+<tr>
+  <td width="72">
+  <a href="${iconUrl}" target="_blank" rel="noopener noreferrer"><img src="${iconUrl}" alt="${icon.title}" aria-label="${icon.title}" width="72" height="72" class="icon" id="icon-${icon.slug}" /></a>
+  </td>
+  <td>
+      <a href="javascript:;" id="copy-${icon.slug}" class="copyurl" data-url="${iconUrl}" title="Click to copy URL to clipboard" style="position:relative" onclick="navigator.clipboard.writeText(this.getAttribute('data-url')).then(()=>{this.firstChild.classList.toggle('success'); setTimeout(() => this.firstChild.classList.toggle('success', false), 2000); alert('Copied to clipboard!'); })"><pre id="url-${icon.slug}" class="zi-note url">${iconUrl}</pre></a>
+  </td>
+</tr>`;
+      }).join('\n')
+    )
+  );
 }
