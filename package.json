@@ -1,12 +1,12 @@
 {
   "name": "icns",
   "version": "0.1.0",
+  "license": "MIT",
   "author": {
     "name": "Nicholas Berlette",
     "email": "nick@berlette.com",
-    "url": "https://icns.ml"
+    "url": "https://berlette.com"
   },
-  "license": "MIT",
   "private": false,
   "homepage": "https://icns.ml",
   "repository": "nberlette/icns",
