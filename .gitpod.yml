@@ -1,25 +1,54 @@
 image: nberlette/gitpod-enhanced
 
 tasks:
-  - init: pnpm install --global vercel tsm typescript simple-icons > /dev/null
-    before: pnpm install
+  - # terminal 1 task list
+    name: "icns"
+    openMode: split-left
+    before: >-  # runs before every start
+      pnpm install
+    init: >-    # runs after before, but only on prebuilds
+      pnpm add --global vercel tsm typescript simple-icons > /dev/null
+    command: >- # main command to run (like pnpm run dev)
+      pnpm run lint
 
 ports:
-  - port: 3000-5000
+  - port: "3000-5000"
     onOpen: notify
-    visibility: public
+
+gitConfig:
+  github.user: "nberlette"
+  user.name: "Nicholas Berlette"
+  user.email: "nick@berlette.com"
+  user.signingkey: "90805B121BE520A6"
+  commit.gpgsign: "true"
+  tag.gpgsign: "true"
+  credential.helper: "/usr/bin/gp credential-helper"
 
 github:
   prebuilds:
     master: true
     branches: true
+    pullRequests: true
+    pullRequestsFromForks: true
     addLabel: true
     addBadge: true
     addCheck: true
 
 vscode:
   extensions:
+    - esbenp.prettier-vscode
+    - editorconfig.editorconfig
+    - github.copilot-nightly
+    - peterhdd.github-folder
+    - vsls-contrib.gistfs
+    - github.vscode-codeql
+    - cschleiden.vscode-github-actions
+    - eamodio.gitlens
+    - jock.svg
+    - redhat.vscode-yaml
+    - gamunu.vscode-yarn
+    - jacano.vscode-pnpm
+    - eg2.vscode-npm-script
     - christian-kohler.npm-intellisense
     - christian-kohler.path-intellisense
-    - editorconfig.editorconfig
-    - esbenp.prettier-vscode
+    - ms-vscode.live-server
