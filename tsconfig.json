@@ -7,6 +7,7 @@
     "outDir": "public",
     "sourceMap": false,
     "declaration": true,
+    "declarationDir": "types",
     "typeRoots": [
       "./node_modules/@types"
     ],
@@ -15,20 +16,22 @@
     "noEmitOnError": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "removeComments": true,
+    "removeComments": false,
     "preserveConstEnums": true,
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "checkJs": false,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "declarationMap": false,
+    "isolatedModules": false,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "icns": ["./api/index"],
+      "icns/utils": ["./api/utils"],
+      "icns/index": ["./api/index"],
+      "icns/render": ["./api/render"]
+    }
   },
-  "include": [
-    "api/**/*"
-  ],
-  "exclude": [
-    "dist",
-    "public",
-    "node_modules",
-    ".vercel"
-  ]
+  "files": ["api/index.ts", "api/render.ts", "api/utils.ts"]
 }
