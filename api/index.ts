@@ -229,8 +229,8 @@ const homepage: string = `
       }
       pre.url {
         border-radius: var(--geist-radius, 6px);
-        border: 2px solid var(--geist);
-        background-color:#eee;
+        border: 2px solid var(--accents-2);
+        background-color: var(--accents-1);
         padding: 6px 10px;
         font-family: var(--font-mono, 'MonoLisa', 'Fira Code', monospace);
         font-size: 1.1rem;
