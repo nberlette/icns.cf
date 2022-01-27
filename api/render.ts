@@ -1,6 +1,6 @@
 import icons, { SimpleIcon } from 'simple-icons';
-import type { Request, Response, QueryParams } from 'icns/utils';
-import { tc, preflight, toSVG, toSlug } from 'icns/utils';
+import type { Request, Response, QueryParams } from './utils';
+import { tc, preflight, toSVG, toSlug } from './utils';
 
 const fallback: string = 'simpleicons';
 

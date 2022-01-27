@@ -1,4 +1,4 @@
-import type { Response, Request } from 'icns/utils';
+import type { Response, Request } from './utils';
 import icons, { SimpleIcon } from 'simple-icons';
 import { marked } from 'marked';
 
@@ -112,9 +112,9 @@ pre.url.success, .success pre.url {
 </div>
 </body></html>`;
 
-export default async function handler (req: Request, res: Response): Promise<Response> {
-  res.setHeader('Content-Type', 'text/html');
-  return res.status(200).send(
+export default async function handler (req: Request, res: Response) {
+  res.setHeader('Content-Type', 'text/html;charset=utf-8');
+  res.status(200).send(
     marked(homepage)
       .replace('{{randomIcons}}', randomIcons.map(
         (icon: SimpleIcon): string => {
