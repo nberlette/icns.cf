@@ -1,7 +1,9 @@
 {
   "functions": {
     "api/*.ts": {
-      "runtime": "@vercel/node@1.12.1"
+      "runtime": "@vercel/node@1.12.1",
+      "memory": 512,
+      "maxDuration": 10
     }
   },
   "routes": [
@@ -13,15 +15,22 @@
       "continue": true
     },
     {
-      "src": "^/favicon\\.ico",
+      "src": "^/((favicon|safari-pinned-tab|apple-touch-icon|logo|favicon-[x0-9]*)\\.(ico|svg|png))",
+      "dest": "/$1",
       "continue": false
     },
     {
       "src": "^/(?:(?<color>[^/]+)[/])?(?<name>[^\\.]+)(?:\\.(?<type>svg|png))?[/]?[?]?(?<query>.*)",
+      "headers": {
+        "Cache-Control": "public, max-age=604800, s-maxage=31536000, stale-while-revalidate=604800, stale-if-error=604800"
+      },
       "dest": "/api/render.ts?slug=$name&color=$color&type=$type&$query"
     },
     {
       "src": "^/(?<name>[^-]+)(?:[-](?<color>[^\\.]+))?(?:\\.(?<type>svg|png))?[/]?[?]?(?<query>.*)?",
+      "headers": {
+        "Cache-Control": "public, max-age=604800, s-maxage=31536000, stale-while-revalidate=604800, stale-if-error=604800"
+      },
       "dest": "/api/render.ts?slug=$name&color=$color&type=$type&$query"
     },
     {
@@ -36,7 +45,7 @@
     },
     {
       "src": "^/(.*)(?:[?](.*))?",
-      "dest": "/404.html",
+      "dest": "/index.html",
       "headers": {
         "Content-Type": "text/html;charset=utf-8",
         "Cache-Control": "public, max-age=120, s-maxage=240",
