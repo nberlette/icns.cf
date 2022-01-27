@@ -4,12 +4,9 @@ tasks:
   - # terminal 1 task list
     name: "icns"
     openMode: split-left
-    before: >-  # runs before every start
-      pnpm install
-    init: >-    # runs after before, but only on prebuilds
-      pnpm add --global vercel tsm typescript simple-icons > /dev/null
-    command: >- # main command to run (like pnpm run dev)
-      pnpm run lint
+    before: pnpm install
+    init: pnpm add --global vercel tsm typescript simple-icons > /dev/null
+    command: pnpm run lint
 
 ports:
   - port: "3000-5000"
@@ -19,7 +16,7 @@ gitConfig:
   github.user: "nberlette"
   user.name: "Nicholas Berlette"
   user.email: "nick@berlette.com"
-  user.signingkey: "90805B121BE520A6"
+  user.signingkey: "1BE520A6"
   commit.gpgsign: "true"
   tag.gpgsign: "true"
   credential.helper: "/usr/bin/gp credential-helper"
