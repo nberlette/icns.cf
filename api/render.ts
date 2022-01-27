@@ -1,17 +1,13 @@
-import type {
-  VercelRequest as Request,
-  VercelResponse as Response
-} from '@vercel/node';
 import icons, { SimpleIcon } from 'simple-icons';
-import tc from 'tinycolor2';
-import { preflight, toSVG, toSlug, QueryParams } from './_utils';
+import type { Request, Response, QueryParams } from './utils';
+import { tc, preflight, toSVG, toSlug } from './utils';
 
 const fallback: string = 'simpleicons';
 
 export default async function handler (req: Request, res: Response): Promise<any> {
   let {
-    slug,
-    name,
+    slug = fallback,
+    name = fallback,
     color = 'default',
     type = 'svg'
   }: QueryParams = req.query;
@@ -25,7 +21,7 @@ export default async function handler (req: Request, res: Response): Promise<any
     ? slug.split('-')
     : [toSlug(slug || name || fallback), toSlug(color)];
 
-  let icon_alt: SimpleIcon = icons.Get(color) || null;
+  let icon_alt: SimpleIcon = icons.Get(color) || icons.Get(slug) || null;
   let icon: SimpleIcon = icons.Get(slug) || icon_alt || icons.Get(fallback);
 
   if (!icon || typeof icon === 'undefined')

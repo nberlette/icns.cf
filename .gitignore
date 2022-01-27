@@ -1,10 +1,52 @@
-# NodeJS
+.DS_Store
+Thumbs.db
+*.log
+.pnpm-*.log
+*.pem
+*.crt
+
 /node_modules
+node_modules
+**/node_modules/**
 
-# App
+.cache
+.pnpm
+.yarn
+.npm
+.pnpm/**/*
+.yarn/**/*
+.npm/**/*
+
+.env
+.env.*
+.env.*.local
+!.env.sample
+!.env.example
+!.env.demo
+!.env.sample.local
+!.env.example.local
+!.env.demo.local
+
+/.env.d
+/.dotenv.d
+/env.d
+/dotenv.d
+.env.d/**/*
+.dotenv.d/**/*
+env.d/**/*
+dotenv.d/**/*
+
 /dist
+dist
+dist/**/*
 
-# Vercel
+/.next
+.next
+/_next
+_next
+/.svelte-kit
+.svelte-kit
+/.vercel_build_output
+.vercel_build_output
+/.vercel
 .vercel
-public
-public/**

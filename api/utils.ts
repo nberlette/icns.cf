@@ -1,23 +1,28 @@
 import type {
-  VercelRequest as Request,
-  VercelResponse as Response,
-  VercelRequestQuery as RequestQuery
+  VercelRequest,
+  VercelResponse,
+  VercelRequestQuery
 } from '@vercel/node';
 import tc from 'tinycolor2';
+
+export { tc };
 
 export declare type QueryParams = {
   slug?: string,
   name?: string,
   color?: string,
   type?: string,
-} & RequestQuery;
+} & VercelRequestQuery;
+
+export declare type Response = VercelResponse;
+export declare type Request = VercelRequest;
 
 const DAYS = 60 * 60 * 24; 		// 86400 = 1 day
 const CACHE_BROWSER = 7 * DAYS; 	// 86400 * 7 days
 const CACHE_CDN = 5 * DAYS;		// 86400 * 5 days
 const CONTENT_TYPE = 'image/svg+xml;charset=utf-8';
 
-export function preflight (res: Response) {
+export function preflight (res: VercelResponse): void {
   res.setHeader("Access-Control-Allow-Origin", '*');
   res.setHeader("Access-Control-Allow-Methods", 'GET');
   res.setHeader("Access-Control-Allow-Headers", '*');
