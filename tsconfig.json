@@ -24,14 +24,8 @@
     "skipLibCheck": true,
     "declarationMap": false,
     "isolatedModules": false,
-    "resolveJsonModule": true,
-    "baseUrl": ".",
-    "paths": {
-      "icns": ["./api/index"],
-      "icns/utils": ["./api/utils"],
-      "icns/index": ["./api/index"],
-      "icns/render": ["./api/render"]
-    }
+    "resolveJsonModule": true
   },
-  "files": ["api/index.ts", "api/render.ts", "api/utils.ts"]
+  "include": ["api/*.ts", "api/*.d.ts"],
+  "exclude": ["node_modules", "**/node_modules/**", "dist", "public"]
 }

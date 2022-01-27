@@ -25,14 +25,26 @@
       "dest": "/api/render.ts?slug=$name&color=$color&type=$type&$query"
     },
     {
-      "handle": "filesystem"
-    },
-    {
       "src": "^/(.*)(?:[?](.*))?",
       "dest": "/api/index.ts?q=$1&$2",
       "headers": {
         "Cache-Control": "public, max-age=600, s-maxage=900, stale-while-revalidate=60, stale-if-error=86400"
       }
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "^/(.*)(?:[?](.*))?",
+      "dest": "/404.html",
+      "headers": {
+        "Content-Type": "text/html;charset=utf-8",
+        "Cache-Control": "public, max-age=120, s-maxage=240",
+        "x-request-pathname": "$1",
+        "x-request-querystr": "$2",
+        "x-server-name": "icns.ml"
+      },
+      "continue": false
     }
   ]
 }
