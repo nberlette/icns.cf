@@ -8,50 +8,71 @@
   },
   "routes": [
     {
-      "src": "^/(.*)\\.(svg|png|ico|jpe?g|gif|webp)",
+      "src": "^/(?<path>[^\\.]+)\\.(?<type>css|js|json|mjs|cjs|svg|png|ico|jpe?g|gif|webp)(?:[?](?<query>.+))?",
       "headers": {
-        "Cache-Control": "public, max-age=604800, s-maxage=31536000, stale-while-revalidate=604800, stale-if-error=604800"
+        "Access-Control-Allow-Origin": "*",
+        "Cache-Control": "public, max-age=604800, s-maxage=31536000, stale-while-revalidate=604800, stale-if-error=604800",
+        "x-request-pathname": "$path",
+        "x-request-filetype": "$type",
+        "x-request-query": "$query",
+        "x-server-name": "icns.ml"
       },
       "continue": true
     },
     {
-      "src": "^/((favicon|safari-pinned-tab|apple-touch-icon|logo|favicon-[x0-9]*)\\.(ico|svg|png))",
-      "dest": "/$1",
+      "src": "^/(assets[/])?fonts?(\\.css)?(?:[?](?<query>.+))?",
+      "dest": "https://www.monolisa.dev/api/fonts/preview?$query",
+      "methods": [
+        "GET"
+      ],
+      "headers": {
+        "Cache-Control": "public, max-age=604800, s-maxage=31536000, stale-while-revalidate=604800, stale-if-error=604800",
+        "Content-Type": "text/css;charset=utf-8"
+      }
+    },
+    {
+      "src": "^/(?<path>favicon|safari-pinned-tab|apple-touch-icon|logo|mstile-[x0-9]*|favicon-[x0-9]*)\\.(?<type>ico|svg|png)(?:[?](?<query>.+))?",
+      "dest": "/$path.$type?$query",
       "continue": false
     },
     {
-      "src": "^/(?:(?<color>[^/]+)[/])?(?<name>[^\\.]+)(?:\\.(?<type>svg|png))?[/]?[?]?(?<query>.*)",
-      "headers": {
-        "Cache-Control": "public, max-age=604800, s-maxage=31536000, stale-while-revalidate=604800, stale-if-error=604800"
-      },
-      "dest": "/api/render.ts?slug=$name&color=$color&type=$type&$query"
-    },
-    {
-      "src": "^/(?<name>[^-]+)(?:[-](?<color>[^\\.]+))?(?:\\.(?<type>svg|png))?[/]?[?]?(?<query>.*)?",
-      "headers": {
-        "Cache-Control": "public, max-age=604800, s-maxage=31536000, stale-while-revalidate=604800, stale-if-error=604800"
-      },
-      "dest": "/api/render.ts?slug=$name&color=$color&type=$type&$query"
-    },
-    {
-      "src": "^/(.*)(?:[?](.*))?",
-      "dest": "/api/index.ts?q=$1&$2",
+      "src": "^/(?:(home|index|main)(\\.html)?)?(?:[?](?<query>.+))?",
+      "dest": "/api/index.ts?path=$path&$query",
       "headers": {
         "Cache-Control": "public, max-age=600, s-maxage=900, stale-while-revalidate=60, stale-if-error=86400"
-      }
+      },
+      "continue": false
+    },
+    {
+      "src": "^/(?:(?<color>[^/]+)[/])?(?<name>[^\\.]+)(?:\\.(?<type>svg|png))?(?:[?](?<query>.+))?",
+      "headers": {
+        "Cache-Control": "public, max-age=604800, s-maxage=31536000, stale-while-revalidate=604800, stale-if-error=604800"
+      },
+      "dest": "/api/render.ts?slug=$name&color=$color&type=$type&$query"
+    },
+    {
+      "src": "^/(?<name>[^-]+)(?:[-](?<color>[^\\.]+))?(?:\\.(?<type>svg|png))?(?:[?](?<query>.+))?",
+      "headers": {
+        "Cache-Control": "public, max-age=604800, s-maxage=31536000, stale-while-revalidate=604800, stale-if-error=604800"
+      },
+      "dest": "/api/render.ts?slug=$name&color=$color&type=$type&$query"
+    },
+    {
+      "src": "^/(?<path>.+)?(?:[?](?<query>.*))?",
+      "dest": "/api/index.ts?path=$path&$query",
+      "headers": {
+        "Cache-Control": "public, max-age=600, s-maxage=900, stale-while-revalidate=60, stale-if-error=86400"
+      },
+      "continue": false
     },
     {
       "handle": "filesystem"
     },
     {
-      "src": "^/(.*)(?:[?](.*))?",
-      "dest": "/index.html",
+      "src": "^/(.*)",
+      "dest": "/$1",
       "headers": {
-        "Content-Type": "text/html;charset=utf-8",
-        "Cache-Control": "public, max-age=120, s-maxage=240",
-        "x-request-pathname": "$1",
-        "x-request-querystr": "$2",
-        "x-server-name": "icns.ml"
+        "Cache-Control": "public, max-age=120, s-maxage=240"
       },
       "continue": false
     }
