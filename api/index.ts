@@ -1,84 +1,100 @@
+// TODO: #5 Switch to Next.js or SvelteKit as the frontend has outgrown this format.
 import type { Response, Request } from './utils';
 import icons, { SimpleIcon } from 'simple-icons';
 import { marked } from 'marked';
+import { tc } from './utils'
+import {
+  SITE_URL,
+  SITE_NAME,
+  SITE_TAGLINE,
+  SITE_TITLE,
+  SITE_DESCRIPTION,
+  SITE_KEYWORDS,
+  SITE_TWITTER,
+  SITE_AUTHOR_URL,
+  SITE_AUTHOR_NAME,
+  GITHUB_URL,
+  LICENSE_URL,
+  VERCEL_URL,
+  DISPLAY_ICONS_COUNT,
+  markedOptions,
+  MarkedOptions
+} from './constants';
 
-const markedOptions: Record<string, any> = {
-  gfm: true,
-  headerIds: true,
-  sanitize: false,
-  silent: true,
-  smartLists: true,
-  smartypants: true,
-  xhtml: true
-}
 
-/**
- * Super hacky, I know.
- */
+// I know, it's disgusting... but it works for the time being :)
 try {
   delete icons.Get;
 } catch {}
 
-const randomIconsCount = 10;
 const randomIcons: any[] = Object
   .values(icons)
   .sort((a, b) => Math.random() > 0.5 ? -1 : 1)
-  .slice(0, randomIconsCount);
+  .slice(0, DISPLAY_ICONS_COUNT);
 
-
-/**
- * site config constants
- */
-const SITE_URL: string = new URL(process.env.ICNS_URL || 'https://icns.ml').origin;
-const SITE_NAME: string = 'icns.ml';
-const SITE_TAGLINE: string = 'SimpleIcons as a Service'
-const SITE_TITLE: string = `${SITE_NAME} - ${SITE_TAGLINE}`;
-const SITE_DESCRIPTION = `2100+ vector icons with a dynamic colors API - deployed globally on Vercel's Edge Network with 100% open source software.`;
-const SITE_KEYWORDS = `icns,icns.ml,icns.cf,simpleicons,svg,icons,vector,nberlette,berlette,api,vercel,open-source,edge,cdn,graphic design,graphics,ui,ux,iconography,free,endpoint`;
-const SITE_AUTHOR_NAME = 'Nicholas Berlette';
-const SITE_AUTHOR_URL = 'https://berlette.com';
-const SITE_TWITTER = '@nberlette';
-const GITHUB_URL = 'https://github.com/nberlette/icns';
-const GITPOD_URL = `https://gitpod.io/#${GITHUB_URL}`;
-const VERCEL_URL = `https://vercel.com/new/git/external?repository-url=${GITHUB_URL}/tree/main&project-name=icns-api&repository-name=icns`;
-const LICENSE_URL = 'https://icns.mit-license.org';
-
-const homepage: string = `
-<!DOCTYPE html>
-<html>
+let homepage_head = `<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>icns.ml - simple icons as a service</title>
-    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,max-scale=1.0" />
+    <title>${SITE_TITLE}</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0" />
     <meta charSet="utf-8" />
+
     <meta name="title" content="${SITE_TITLE}" />
     <meta name="description" content="${SITE_DESCRIPTION}" />
     <meta name="keywords" content="${SITE_KEYWORDS}" />
+
     <meta name="twitter:site" content="${SITE_TWITTER}" />
     <meta name="twitter:user_id" content="${SITE_TWITTER}" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="/og.png" />
-    <meta name="twitter:image:src" content="/og.png" />
+    <meta name="twitter:image" content="${SITE_URL}/og.png" />
+    <meta name="twitter:image:src" content="${SITE_URL}/og.png" />
     <meta name="twitter:title" content="${SITE_NAME}" />
     <meta name="twitter:description" content="${SITE_TAGLINE}" />
     <meta name="twitter:url" content="${SITE_URL}/?utm_source=twitter" />
+
     <meta property="og:type" content="website" />
     <meta property="og:title" content="${SITE_NAME}" />
     <meta property="og:description" content="${SITE_TAGLINE}" />
-    <meta property="og:image" content="/og.png" />
+    <meta property="og:image" content="${SITE_URL}/og.png" />
     <meta property="og:url" content="${SITE_URL}/?utm_source=opengraph" />
+
     <meta name="author" content="${SITE_AUTHOR_NAME}" />
     <meta name="canonical" property="canonical" content="${SITE_URL}/" />
     <link rel="canonical" href="${SITE_URL}/" type="canonical" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" type="image/png" purpose="apple-touch-icon any"
-      sizes="180x180" />
-    <link rel="shortcut vercicon" href="/favicon.svg" type="image/svg+xml" purpose="maskable any" />
-    <!--<link rel="shortcut icon" href="/favicon.png" type="image/png" purpose="any" sizes="96x96" purpose="any" />-->
+
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" type="image/png" purpose="any" sizes="180x180" />
+    <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" purpose="maskable any" />
     <link rel="icon" href="/mstile-144x144.png" type="image/png" sizes="144x144" purpose="any" />
-    <link rel="icon" href="/safari-pinned-tab.svg" type="image/svg+xml" color="#223344" purpose="maskable safari-pinned-tab any" />
+    <link rel="safari-pinned-tab" href="/safari-pinned-tab.svg" type="image/svg+xml" color="#223344" purpose="maskable safari-pinned-tab any" />
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+
     <link rel="stylesheet" href="https://unpkg.com/@geist-ui/style/dist/style.css" type="text/css" />
-    <link rel="preload" href="https://www.monolisa.dev/api/fonts/preview" as="font/woff" onload="this.rel='stylesheet';this.type='text/css';delete this.as;this.onload=null;" />
+    <link rel="preload" href="/assets/fonts.css" as="font" />
+
     <style type="text/css">
-      :root {
+            html,
+      body {
+        background: transparent;
+        margin: 0;
+        padding: 0;
+      }
+      
+      html {
+        box-shadow: inset 0 0 14vw 8vw var(--icns-background, #f0f0f0);
+        background: var(--icns-background-hero, #e7f0f0) var(--icns-background-image);
+        margin: 0;
+        padding: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        min-width: 100vw;
+        min-height: 100vh;
+      }
+
+      .light, :root {
         --icns-background: #fff;
         --icns-foreground: #234;
         --icns-background-hero: #e7f0f0;
@@ -96,9 +112,7 @@ const homepage: string = `
         --icns-github-corner-color: #fff !important;
         --font-mono: 'MonoLisa', 'Operator Mono Lig', 'Operator Mono', Menlo, Monaco, Lucida Console, 'Liberation Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', Courier New,monospace;
       }
-
-      @media screen and (prefers-color-scheme: dark) {
-        :root {
+      .dark, .dark-theme {
           --icns-background: #234;
           --icns-foreground: #f0f0f0;
           --icns-background-hero: #59657c;
@@ -107,25 +121,15 @@ const homepage: string = `
           --icns-github-corner-fill: #e7f0f0 !important;
           --icns-github-corner-color: #223344 !important;
         }
-      }
 
       code::before, code::after {
-        content: "" !important;
+        content: '' !important;
       }
 
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-      }
-
-      html {
-        box-shadow: inset 0 0 14vw 8vw var(--icns-background, #f0f0f0);
-        background: var(--icns-background-hero, #e7f0f0) var(--icns-background-image);
-        margin: 0;
-        padding: 0;
-        min-width: 100vw;
-        min-height: 100vh;
+      pre, code, kbd {
+        font-family: 'MonoLisa', 'monolisa', 'Mono Lisa', var(--font-mono, monospace) !important;
+        font-weight: normal;
+        font-style: regular;
       }
 
       .markdown-body {
@@ -158,12 +162,25 @@ const homepage: string = `
       }
 
       header h3 {
-        font-size: 1.1rem !important;
+        font-size: 1rem !important;
         text-shadow: var(--shadow-small);
+        color: var(--accents-8) !important;
         transition: text-shadow 0.4s ease-in-out;
+        text-transform: lowercase !important;
         margin: 0;
         padding: 0;
       }
+
+      header h3 a {
+        color: inherit !important;
+      }
+
+      small.caps {
+        text-transform: uppercase !important;
+        font-weight: 700 !important;
+        font-size: 0.95em;
+      }
+
       header h3:hover {
         text-shadow: var(--shadow-medium);
       }
@@ -186,16 +203,7 @@ const homepage: string = `
       h1 svg.logo:hover {
         filter: drop-shadow(var(--icns-logo-shadow) var(--icns-logo-shadow-color, #11223322));
       }
-      pre.icon-url { 
-        margin-right: 2em; 
-      } 
-      pre.url {
-        transition: all 0.5s ease-in;
-        border: 2px solid #ddd;
-      }
-      pre.success {
-        border: 2px solid var(--geist-success, green);
-      }
+
       .zi-card {
          margin: 2rem 0 !important; 
          box-shadow: var(--shadow-large), var(--shadow-small) !important;
@@ -213,13 +221,11 @@ const homepage: string = `
         color: var(--accents-1) !important;
       }
       .footer.zi-dark a, .footer.dark a, .dark footer a, footer.dark a {
-        color: #fff !important;
+        color: var(--accents-2) !important;
         text-decoration: none;
         font-weight: bold;
       }
       footer a img {
-        width: 1.2rem;
-        height: 1.2rem;
         opacity: 0.75;
         transition: opacity 0.3s ease-in;
         padding: 5px 8px 0 8px;
@@ -227,21 +233,39 @@ const homepage: string = `
       footer a:hover img, footer a img:hover {
         opacity: 1;
       }
-      pre.url {
-        border-radius: var(--geist-radius, 6px);
+      .url {
+        border-radius: 8px;
         border: 2px solid var(--accents-2);
         background-color: var(--accents-1);
-        padding: 6px 10px;
-        font-family: var(--font-mono, 'MonoLisa', 'Fira Code', monospace);
-        font-size: 1.1rem;
         font-style: italic;
         color: var(--icns-foreground);
-        cursor:pointer;
-        width: 90%;
-        transition: all 0.4s ease-in;
+        cursor: pointer;
+        padding: 10px;
+        transition: all 0.5s ease-in;
+        position: relative;
+        overflow: hidden;
       }
-      pre.url.success, .success pre.url {
-        border-color: var(--geist-success);
+      .url.success, .success .url {
+        border-color: seagreen !important;
+      }
+      .url > span {
+        font-size: 1.1rem;
+      }
+      .url > span:before {
+        background: seagreen;
+        content: '✔️ copied';
+        color: white !important;
+        display: block;
+        opacity: 0;
+        transition: opacity 0.8s ease-in-out;
+        padding: 10px;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        text-shadow: 0 3px 6px #0002, 0 1px 1px #0003;
+      }
+      .success .url > .span:before, .url.success > span:before {
+        opacity: 0.9;
       }
       a.github-corner {
         color: var(--icns-github-corner-color, #fff) !important;
@@ -261,34 +285,24 @@ const homepage: string = `
       }
 
 </style>
-<script type="text/javascript">
-  function $ (selector) {
-    return document.querySelector(selector);
-  }
-  function $$ (selector) {
-    return Array.from(document.querySelectorAll(selector));
-  }
-  function $attr (selector, attr, value = null) {
-    if (value) $(selector).setAttribute(attr, value);
-    return $(selector).getAttribute(attr)
-  }
-  function $cn (selector, className, add = true) {
-    $(selector).classList.toggle(className, add);
-  }
-  function clipboardCopy (url, a, pre) {
-    navigator.clipboard.writeText(url).catch(console.error)
-        .then(async () => new Promise(fulfill => {
-          $cn(pre, 'success'); 
-          setTimeout(() => fulfill('success'), 3000); 
-        })
-        .then(result => $cn(pre, result, false));
-    return false;
+<script nonce="icns">
+  var $cl = document.documentElement.classList;
+  var theme_user = ('theme' in window.localStorage) ? window.localStorage.theme : 'auto';
+  var theme_system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  if ((theme_system == 'dark' && theme_user == 'auto') || theme_user == 'dark') {
+    $cl.toggle('dark-theme', true);
+    $cl.toggle('dark', true);
+    $cl.toggle('light', false);
+  } else {
+    $cl.toggle('dark-theme', false);
+    $cl.toggle('dark', false);
+    $cl.toggle('light', true);
   }
 </script>
 </head>
 <body>
 <a href="${GITHUB_URL}" class="github-corner" aria-label="View Source on GitHub">
-  <svg width="60" height="60" viewBox="0 0 250 250" style="fill:var(--icns-github-corner-fill, #223344);color:(--icns-github-corner-color, #fff);position:fixed;top:0;border:0;right:0;" aria-hidden="true">
+  <svg width="80" height="80" viewBox="0 0 250 250" style="fill:var(--icns-github-corner-fill, #223344);color:(--icns-github-corner-color, #fff);position:fixed;top:0;border:0;right:0;" aria-hidden="true">
     <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
     <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
     <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
@@ -304,70 +318,109 @@ const homepage: string = `
       </svg>
     </a>
   </h1>
-  <h3>2.1k icons <a href="https://simpleicons.org" target="_blank" rel="noopener noreferrer"><img src="/345d/simpleicons.svg" alt="SimpleIcons" width="16" height="16" /></a> &middot; dynamic colors &middot; edge <small><strong>CDN</strong></small> <a href="https://vercel.com" target="_blank" rel="noopener noreferrer"><img src="/345d/vercel.svg" alt="Vercel" width="16" height="16" /></a></h3>
+  <h3>
+    <span><a href="https://simpleicons.org" target="_blank" rel="noopener noreferrer">2.1k SVG icons</a></span> &middot; 
+    <span>dynamic colors API</span> &middot; 
+    <span><a href="https://vercel.com" target="_blank" rel="noopener noreferrer">Vercel's Edge Network</a></span>
+  </h3>
 </header>
+`;
+
+let homepage = `
+<br>
+<div class="zi-card shadow">
+<pre class="zi-dark">
+${SITE_URL} / <strong>slug*</strong> <em>— color</em> . <em><strong>type</strong></em>†
+</pre>
+<pre class="zi-dark">
+${SITE_URL} / <em>color</em> / <strong>slug*</strong> . <em><strong>type</strong></em>†
+</pre>
+
+|         **Parameter** | **Usage**    | **Syntax**                                                                                                   | **Examples**                       |
+|----------------------:|:-------------|:-------------------------------------------------------------------------------------------------------------|:-----------------------------------|
+| <kbd>\`slug\`\*</kbd> | **required** | Alphanumeric - [see: naming convention ↗](https://github.com/simple-icons/simple-icons/blog/develop/slugs.md) | \`css3\`, \`nextdotjs\`, \`500px\` |
+|  <kbd>\`color\`</kbd> | **optional** | Valid CSS colors: hex (3/4/6/8), name, rgb, hsl, ...                                                         | \`fff\`, \`black\`, \`rgb(0,0,0)\` |
+| <kbd>\`type\`\†</kbd> | **advised**  | **\`.svg\`** (**\`.png\`** support coming soon)                                                       | \`.svg\`, \`.png\`                 |
 
 <br>
 
-<div class="zi-card shadow">
-
-<pre class="zi-dark">${SITE_URL}/ :name [-:color] [.:type]</pre>
-<pre class="zi-dark">${SITE_URL}/ [:color] / :name [.:type]</pre>
-
-- **\`:name\`**   · **\`required\`** · alphanumeric, no spaces, dashes, no special chars.  
-- **\`:color\`** · \`optional\` · default: brand's primary color.  
-- **\`:type\`**   · \`optional\` · default: \`svg\`. (\`png\` raster support coming soon!)
-
-> Examples: [**\`${SITE_URL}/github.svg\`**](./github.svg) or [**\`${SITE_URL}/ffcc00/github.svg\`**](./ffcc00/github.svg)
+> **Examples**: [**\`${SITE_URL}/vercel.svg\`**](./vercel.svg) , [**\`${SITE_URL}/fc0/github.svg\`**](./fc0/github.svg) , [**\`${SITE_URL}/bmw-black.svg\`**](./bmw-black.svg)  
 
 </div>
-
 <div class="zi-card">
-
 <table width="100%" cellpadding="2" cellspacing="2" class="zi-table">
-{{randomIcons}}
+{{icons}}
 </table>
-
-
 </div>
-  <footer align="center" class="zi-card zi-dark dark footer">
-    <p><a href="${LICENSE_URL}" target="_blank" rel="noopener noreferrer" title="MIT License" aria-label="MIT License">MIT</a> <small>&copy;</small>
-    <a href="${SITE_AUTHOR_URL}" target="_blank" rel="noopener" title="Another Pandemic Project by ${SITE_AUTHOR_NAME}" aria-label="Another Pandemic Project">${SITE_AUTHOR_NAME}</a> &middot; 
-    <a href="https://simpleicons.org" target="_blank" rel="noopener noreferrer" title="Icons by SimpleIcons.org" aria-label="Icons by SimpleIcons.org"><img src="/fff/simpleicons.svg" alt="SimpleIcons" width="16" height="16" /></a> &middot;
-    <a href="${VERCEL_URL}" target="_blank" rel="noopener noreferrer" title="Deploy on Vercel!" aria-label="Deploy on Vercel"><img src="/fff/vercel.svg" alt="Vercel" width="16" height="16" /></a>
-  </footer>
-</body>
-</html>`;
+`;
 
-export default async function handler (req: Request, res: Response) {
-  res.setHeader('Content-Type', 'text/html;charset=utf-8');
-  res.status(200).send(
-    marked(homepage, markedOptions)
-      .replace('{{randomIcons}}', randomIcons.map(
-        (icon: SimpleIcon): string => {
-          let iconUrl = `${icon.slug}.svg`;
-          let iconAbsUrl = `${SITE_URL}/${iconUrl}`
-          return `
-<tr>
+let homepage_foot = `<footer align="center" class="zi-card zi-dark dark footer">
+  <a href="${LICENSE_URL}" target="_blank" rel="noopener noreferrer" title="MIT License" aria-label="MIT License">MIT</a> <small>&copy;</small>
+  <a href="${SITE_AUTHOR_URL}" target="_blank" rel="noopener" title="Another Pandemic Project by ${SITE_AUTHOR_NAME}" aria-label="Another Pandemic Project">${SITE_AUTHOR_NAME}</a> &middot; 
+  <a href="https://simpleicons.org" target="_blank" rel="noopener noreferrer" title="Icons by SimpleIcons.org" aria-label="Icons by SimpleIcons.org">simpleicons.org</a> &middot;
+  <a href="${VERCEL_URL}" target="_blank" rel="noopener noreferrer" title="Deploy on Vercel!" aria-label="Deploy on Vercel">vercel.com</a>
+</footer>
+
+<script type="text/javascript">
+  var $ = document.querySelector.bind(document);
+  var $$ = (s) => [...document.querySelectorAll(s)];
+
+  function $attr (selector, attr, value = null) {
+    !!(value) && $(selector).setAttribute(attr, value);
+    return $(selector).getAttribute(attr);
+  }
+
+  async function clip (slug, base_url = '${SITE_URL}', toast_duration = 3000) {
+    const url = new URL(slug+'.svg', base_url).href;
+    try {
+      await navigator.clipboard.writeText(url);
+      $('#url-'+slug).classList.add('success'); 
+
+      setTimeout(() => {
+        $('#url-'+slug).classList.remove('success');
+      }, toast_duration);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+</script>
+</body>
+</html>
+`;
+
+const iconsTableRow = `<tr>
   <td width="72">
-  <a href="/${iconUrl}" target="_blank" rel="noopener noreferrer">
-    <img src="/${iconUrl}" alt="${icon.title}" aria-label="${icon.title}" width="72" height="72" class="icon" id="icon-${icon.slug}" />
+  <a href="/{{ICON}}" target="_blank" rel="noopener noreferrer" aria-label="{{TITLE}}" title="{{TITLE}}">
+    <img src="/{{ICON}}" alt="{{TITLE}}" aria-label="{{TITLE}}" width="72" height="72" class="icon" id="icon-{{slug}}" />
   </a>
   </td>
   <td>
-      <a href="#${iconAbsUrl}"
-         id="copy-${icon.slug}" 
+      <a href="javascript:clip('{{SLUG}}');"
+         id="copy-{{SLUG}}" 
          class="copyurl"
-         data-url="${iconAbsUrl}" 
-         title="Copy URL to Clipboard"
+         data-url="{{URL}}" 
+         title="Copy &quot;{{URL}}&quot; to Clipboard"
          style="position:relative"
-         onclick="return clipboardCopy('${iconAbsUrl}', 'copy-${icon.slug}', 'url-${icon.slug}')"
       >
-        <pre id="url-${icon.slug}" class="zi-note url">${iconAbsUrl}</pre>
+        <pre id="url-{{SLUG}}" class="url"><span>{{URL}}</span></pre>
       </a>
   </td>
 </tr>`;
-      }).join('\n')
-    )
-  );
+
+function parseMarkdownWithIcons(source: string, options: MarkedOptions = {}): string {
+  let result = marked.parse(source, Object.assign({}, marked.getDefaults(), options))
+  return result.replace(/[{]{1,2}\s?icons\s?[}]{1,2}/ig, randomIcons.map(
+    (icon: SimpleIcon): string =>
+      iconsTableRow.replace(/[{]{1,2}\s?icon\s?[}]{1,2}/ig, `${icon.slug}.svg`)
+          .replace(/[{]{1,2}\s?url\s?[}]{1,2}/ig, `${SITE_URL}/${icon.slug}.svg`)
+          .replace(/[{]{1,2}\s?title\s?[}]{1,2}/ig, icon.title)
+          .replace(/[{]{1,2}\s?slug\s?[}]{1,2}/ig, icon.slug)
+          .replace(/[{]{1,2}\s?hex\s?[}]{1,2}/ig, tc(icon.hex).toHexString())
+    ).join('\n'))
+}
+
+export default async function handler (req: Request, res: Response) {
+  homepage = parseMarkdownWithIcons(homepage, markedOptions);
+  res.setHeader('Content-Type', 'text/html;charset=utf-8');
+  res.status(200).send(`${homepage_head}${homepage}${homepage_foot}`);
 }
