@@ -21,7 +21,7 @@ icns.ml / <em>color</em> / <strong>slug*</strong> . <em><strong>type</strong></e
 
 |       **Parameter** | **Usage**    | **Syntax**                                                                                                        | **Examples**                 |
 |--------------------:|:-------------|:------------------------------------------------------------------------------------------------------------------|:-----------------------------|
-| <kbd>`slug`\*</kbd> | **required** | Alphanumeric only; see: [naming convention ↗](https://github.com/simple-icons/simple-icons/blog/develop/slugs.md) | `css3`, `nextdotjs`, `500px` |
+| <kbd>`slug`\*</kbd> | **required** | Alphanumeric only; see: [naming convention ↗](https://github.com/simple-icons/simple-icons/blob/develop/slugs.md) | `css3`, `nextdotjs`, `500px` |
 |  <kbd>`color`</kbd> | **optional** | Valid CSS colors: hex (3/4/6/8), name, rgb, hsl, ...                                                              | `fff`, `black`, `rgb(0,0,0)` |
 |  <kbd>`type`†</kbd> | **advised**  | **`.svg`** (**`.png`** raster support coming soon)                                                                | `.svg`, `.png`               |
 

@@ -72,28 +72,33 @@ let homepage_head = `<!DOCTYPE html>
     <link rel="stylesheet" href="https://unpkg.com/@geist-ui/style/dist/style.css" type="text/css" />
     <link rel="preload" href="/assets/fonts.css" as="font" />
 
-    <style type="text/css">
-            html,
-      body {
-        background: transparent;
-        margin: 0;
-        padding: 0;
-      }
-      
+    <style type="text/css">      
       html {
-        box-shadow: inset 0 0 14vw 8vw var(--icns-background, #f0f0f0);
-        background: var(--icns-background-hero, #e7f0f0) var(--icns-background-image);
+        background: var(--icns-background-hero, #e7f0f0) var(--icns-background-image) top left repeat fixed;
         margin: 0;
         padding: 0;
-        position: fixed;
-        top: 0;
-        left: 0;
         width: 100vw;
         height: 100vh;
         min-width: 100vw;
         min-height: 100vh;
       }
-
+      body:before {
+        display: block;
+        width: 100vw;
+        height: 100vh;
+        min-width: 100vw;
+        min-height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        box-shadow: inset 0 0 14vw 10vw var(--icns-background, #f0f0f0);
+      }
+      body {
+        padding: 0 0 4rem 0;
+        max-width: 70vw; 
+        margin: 2rem auto; 
+        background: transparent !important;
+      }
       .light, :root {
         --icns-background: #fff;
         --icns-foreground: #234;
@@ -135,11 +140,6 @@ let homepage_head = `<!DOCTYPE html>
       .markdown-body {
         max-width: 90vw;
         margin: 1rem auto;
-        background: transparent !important;
-      }
-
-      body { 
-        max-width: 70vw; margin: 2rem auto; 
         background: transparent !important;
       }
 
@@ -338,7 +338,7 @@ ${SITE_URL} / <em>color</em> / <strong>slug*</strong> . <em><strong>type</strong
 
 |         **Parameter** | **Usage**    | **Syntax**                                                                                                   | **Examples**                       |
 |----------------------:|:-------------|:-------------------------------------------------------------------------------------------------------------|:-----------------------------------|
-| <kbd>\`slug\`\*</kbd> | **required** | Alphanumeric - [see: naming convention ↗](https://github.com/simple-icons/simple-icons/blog/develop/slugs.md) | \`css3\`, \`nextdotjs\`, \`500px\` |
+| <kbd>\`slug\`\*</kbd> | **required** | Alphanumeric - [see: naming convention ↗](https://github.com/simple-icons/simple-icons/blob/develop/slugs.md) | \`css3\`, \`nextdotjs\`, \`500px\` |
 |  <kbd>\`color\`</kbd> | **optional** | Valid CSS colors: hex (3/4/6/8), name, rgb, hsl, ...                                                         | \`fff\`, \`black\`, \`rgb(0,0,0)\` |
 | <kbd>\`type\`\†</kbd> | **advised**  | **\`.svg\`** (**\`.png\`** support coming soon)                                                       | \`.svg\`, \`.png\`                 |
 
