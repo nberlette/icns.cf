@@ -7,29 +7,41 @@
   </h3>
 </div>
 
----  
-
-<br>
+---
 
 ## Schema
 
-<pre>
-icns.ml / <strong>slug*</strong> <em>— color</em> . <em><strong>type</strong></em>†
+There are two different schemas that [icns.ml] (and [icns.cf]) is designed to work with:
 
-icns.ml / <em>color</em> / <strong>slug*</strong> . <em><strong>type</strong></em>†
+### Linear / flat: color is optional
+
+<pre>
+https://icns.{ml,cf} / <strong>slug</strong>* <em>— color</em> . <em><strong>type</strong></em>†
 </pre>
 
-|       **Parameter** | **Usage**    | **Syntax**                                                                                                        | **Examples**                 |
-|--------------------:|:-------------|:------------------------------------------------------------------------------------------------------------------|:-----------------------------|
-| <kbd>`slug`\*</kbd> | **required** | Alphanumeric only; see: [naming convention ↗](https://github.com/simple-icons/simple-icons/blob/develop/slugs.md) | `css3`, `nextdotjs`, `500px` |
-|  <kbd>`color`</kbd> | **optional** | Valid CSS colors: hex (3/4/6/8), name, rgb, hsl, ...                                                              | `fff`, `black`, `rgb(0,0,0)` |
-|  <kbd>`type`†</kbd> | **advised**  | **`.svg`** (**`.png`** raster support coming soon)                                                                | `.svg`, `.png`               |
+> **Note**: `slug` and `color` must be separated by a **hyphen** (dash).
 
-<br><br>
+### Nested "folders": color (required, or `default`)
+
+<pre>
+https://icns.{ml,cf} / <em>color</em> / <strong>slug</strong>* . <em><strong>type</strong></em>†
+</pre>
+
+### Syntax and Compatibility
+
+|       **Parameter** | **Usage**    | **Syntax**                                              | **More Information**                        |
+|--------------------:|:-------------|:--------------------------------------------------------|:--------------------------------------------|
+| <kbd>`slug`\*</kbd> | **required** | Alphanumeric; No hyphens, punctuation, etc.             | [**Naming Convention ↗**][naming]           |
+|  <kbd>`color`</kbd> | **optional** | CSS colors; Hexadecimal (3/4/6/8), names, rgb, hsl, ... | [**Dynamic Color API**](#dynamic-color-api) |
+|  <kbd>`type`†</kbd> | **advised**  | **`.svg`** (raster support for `.png` coming soon)      | `--`                                        |
+
+> `.svg` is the fallback/implicit filetype (e.g. https://icns.ml/google -> https://icns.ml/google.svg)
+
+---  
 
 ## Examples
 
-|   **Icon**    | **Color**           | **URL (nested)**                                 | **URL (flat)**                                   |
+|   **Icon**    | **Color**           | **Nested URL. **                                 | **Linear / Flat**                                |
 |:-------------:|:--------------------|:-------------------------------------------------|:-------------------------------------------------|
 |   ![Svelte]   | <kbd>default</kbd>  | <code>https://icns.ml/default/svelte.svg</code>  | <code>https://icns.ml/svelte.svg</code>          |
 |    ![BMW]     | <kbd>seagreen</kbd> | <code>https://icns.ml/seagreen/bmw.svg</code>    | <code>https://icns.ml/bmw-seagreen.svg</code>    |
@@ -45,9 +57,31 @@ icns.ml / <em>color</em> / <strong>slug*</strong> . <em><strong>type</strong></e
 [GitHub]: https://icns.ml/orange/github.svg
 [Unsplash]: https://icns.ml/8cc055/unsplash.svg   
 
-<br><br>
+---  
 
-## ⛑️   Contributing
+## Dynamic Color API
+
+The `color` parameter in the accepted URL schemas (both nested and linear/flat) is interpreted using [`tinycolor2`][tinycolor2].
+
+With the goal of maximum compatibility, I've attempted to make the API as forgiving as possible:
+
+- [x] Hex colors are stripped of the `#` symbol
+- [x] Reversed **color** and **slug** params will ***usually*** still resolve correctly...
+- [x] Default **color** is the icon's brand color [specified by the `simple-icons` package][SimpleIcons]
+- [x] CSS named colors (such as `slategray` or `rebeccapurple`) are supported
+- [x] RGB/RGBA colors are supported, but experimental
+- [x] HSL/HSV colors are supported, but experimental
+- [x] Parses **color** with [`tinycolor2.toHex8String()`][tinycolor2], into a valid `hex8` (or `#00000000`)
+
+### What is `Hex8`?
+
+You may be used to seeing hexadecimal colors only in 3 or 6 digit formats. The extra digit in `Hex4` and the 2 extra digits in `Hex8` are an **alpha channel**, which allows users to control the **opacity** levels of the color in question.
+
+> [icns.ml] supports **Hex 3, 4, 6, and 8**, [as defined in the MDN Web Docs][MDN-colors], meaning it **supports transparency on all 2,100+ [SimpleIcons]**!
+
+---  
+
+## Contributing
 
 [![Open in Gitpod]](https://gitpod.io/#https://github.com/nberlette/icns)
 
@@ -83,17 +117,17 @@ npm install
 gh pr create --title "My new feature for icns.ml" 
 ```  
 
-<br>
+---  
 
-## 🐛   Bugs and feature requests
+## Bugs and Feature Requests
 
 Found a bug? Please [open an issue][issues] on the [repository].
 
-<br>
+---  
 
-## ⚖️   License
+## License
 
-[MIT] © [Nicholas Berlette] • icons by [SimpleIcons] • deployed with [Vercel]
+[MIT] © [Nicholas Berlette] • Icons copyright [SimpleIcons] • deployed with [Vercel]
 
 
 [repository]: https://github.com/nberlette/icns
@@ -105,7 +139,9 @@ Found a bug? Please [open an issue][issues] on the [repository].
 [MIT]: https://icns.mit-license.org
 [SimpleRepo]: https://github.com/simple-icons/simple-icons
 [SimpleIcons]: https://simpleicons.org
+[tinycolor2]: https://npm.im/tinycolor2
 [Vercel]: https://vercel.com
 [SimpleIconsSvg]: https://icns.ml/simpleicons.svg
 [Open in Gitpod]: https://gitpod.io/button/open-in-gitpod.svg
 [gitpod-url]: https://gitpod.io/#https://github.com/nberlette/icns
+[MDN-colors]: https://developer.mozilla.org/en-US/docs/Web/CSS/color_value
