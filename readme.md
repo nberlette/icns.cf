@@ -45,12 +45,12 @@ https://icns.{ml,cf} / <em>color</em> / <strong>slug</strong>* . <em><strong>typ
 |:-------------:|:--------------------|:-------------------------------------------------|:-------------------------------------------------|
 |   ![Svelte]   | <kbd>default</kbd>  | <code>https://icns.ml/default/svelte.svg</code>  | <code>https://icns.ml/svelte.svg</code>          |
 | ![VercelSvg]  | <kbd>rgb(0,200,200)</kbd> | <code>https://icns.ml/rgb(0,200,200)/vercel.svg</code> | <code>https://icns.ml/vercel-rgb(0,200,200).svg</code> |
-|    ![BMW]     | <kbd>seagreen</kbd> | <code>https://icns.ml/8ddddf/bmw.svg</code>      | <code>https://icns.ml/bmw-8ddddf.svg</code>      |
 |  ![Twitter]   | <kbd>#223344</kbd>  | <code>https://icns.ml/234/twitter.svg</code>     | <code>https://icns.ml/twitter-234.svg</code>     |
+| ![TypeScript] | <kbd>gray</kbd>     | <code>https://icns.ml/gray/typescript.svg</code> | <code>https://icns.ml/typescript-gray.svg</code> |
 | ![McDonalds]  | <kbd>#f009</kbd>    | <code>https://icns.ml/f009/mcdonalds.svg</code>  | <code>https://icns.ml/mcdonalds-f009.svg</code>  |
 |   ![GitHub]   | <kbd>orange</kbd>   | <code>https://icns.ml/orange/github.svg</code>   | <code>https://icns.ml/github-orange.svg</code>   |
+|    ![BMW]     | <kbd>#8ddddf</kbd>  | <code>https://icns.ml/8ddddf/bmw.svg</code>      | <code>https://icns.ml/bmw-8ddddf.svg</code>      |
 |  ![Unsplash]  | <kbd>#8cc055</kbd>  | <code>https://icns.ml/8cc055/unsplash.svg</code> | <code>https://icns.ml/unsplash-8cc055.svg</code> |
-| ![TypeScript] | <kbd>gray</kbd>     | <code>https://icns.ml/gray/typescript.svg</code> | <code>https://icns.ml/typescript-gray.svg</code> |
 
 [Svelte]: https://icns.ml/default/svelte.svg
 [BMW]: https://icns.ml/8ddddf/bmw.svg
@@ -145,6 +145,7 @@ Found a bug? Please [open an issue][issues] on the [repository].
 [SimpleIcons]: https://simpleicons.org
 [tinycolor2]: https://npm.im/tinycolor2
 [Vercel]: https://vercel.com
+[VercelSvg]: https://icns.ml/vercel-rgb(0,200,200).svg
 [SimpleIconsSvg]: https://icns.ml/simpleicons.svg
 [Open in Gitpod]: https://gitpod.io/button/open-in-gitpod.svg
 [gitpod-url]: https://gitpod.io/#https://github.com/nberlette/icns
