@@ -4,8 +4,9 @@ tasks:
   - # terminal 1 task list
     name: "icns"
     openMode: split-left
-    before: pnpm install
-    init: pnpm add --global vercel tsm typescript simple-icons > /dev/null
+    before: |
+      pnpm install --global vercel tsm typescript simple-icons > /dev/null
+      pnpm install
     command: pnpm run lint
 
 ports:
@@ -49,3 +50,5 @@ vscode:
     - christian-kohler.npm-intellisense
     - christian-kohler.path-intellisense
     - ms-vscode.live-server
+    - davidanson.vscode-markdownlint
+    - darkriszty.markdown-table-prettify
