@@ -21,7 +21,7 @@ https://icns.{ml,cf} / <strong>slug</strong>* <em>— color</em> . <em><strong>t
 
 > **Note**: `slug` and `color` must be separated by a **hyphen** (dash).
 
-### Nested "folders": color (required, or `default`)
+### Nested "folders": color is required
 
 <pre>
 https://icns.{ml,cf} / <em>color</em> / <strong>slug</strong>* . <em><strong>type</strong></em>†
