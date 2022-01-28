@@ -68,7 +68,6 @@ The `color` parameter in the accepted URL schemas (both nested and linear/flat) 
 
 With the goal of maximum compatibility, I've attempted to make the API as forgiving as possible:
 
-- [x] Hex colors are stripped of the `#` symbol
 - [x] Reversed **color** and **slug** params will ***usually*** still resolve correctly...
 - [x] Default **color** is the icon's brand color [specified by the `simple-icons` package][SimpleIcons]
 - [x] CSS named colors (such as `slategray` or `rebeccapurple`) are supported
