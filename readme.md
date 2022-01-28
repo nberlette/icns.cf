@@ -41,21 +41,23 @@ https://icns.{ml,cf} / <em>color</em> / <strong>slug</strong>* . <em><strong>typ
 
 ## Examples
 
-|   **Icon**    | **Color**           | **Nested URL. **                                 | **Linear / Flat**                                |
+|   **Icon**    | **Color**           | **Nested**                                       | **Linear / Flat**                                |
 |:-------------:|:--------------------|:-------------------------------------------------|:-------------------------------------------------|
 |   ![Svelte]   | <kbd>default</kbd>  | <code>https://icns.ml/default/svelte.svg</code>  | <code>https://icns.ml/svelte.svg</code>          |
-|    ![BMW]     | <kbd>seagreen</kbd> | <code>https://icns.ml/seagreen/bmw.svg</code>    | <code>https://icns.ml/bmw-seagreen.svg</code>    |
+|    ![BMW]     | <kbd>seagreen</kbd> | <code>https://icns.ml/8ddddf/bmw.svg</code>      | <code>https://icns.ml/bmw-8ddddf.svg</code>      |
 |  ![Twitter]   | <kbd>#223344</kbd>  | <code>https://icns.ml/234/twitter.svg</code>     | <code>https://icns.ml/twitter-234.svg</code>     |
 | ![TypeScript] | <kbd>gray</kbd>     | <code>https://icns.ml/gray/typescript.svg</code> | <code>https://icns.ml/typescript-gray.svg</code> |
+| ![McDonalds]  | <kbd>#f009</kbd>    | <code>https://icns.ml/f009/mcdonalds.svg</code>  | <code>https://icns.ml/mcdonalds-f009.svg</code>  |
 |   ![GitHub]   | <kbd>orange</kbd>   | <code>https://icns.ml/orange/github.svg</code>   | <code>https://icns.ml/github-orange.svg</code>   |
 |  ![Unsplash]  | <kbd>#8cc055</kbd>  | <code>https://icns.ml/8cc055/unsplash.svg</code> | <code>https://icns.ml/unsplash-8cc055.svg</code> |
 
 [Svelte]: https://icns.ml/default/svelte.svg
-[BMW]: https://icns.ml/seagreen/bmw.svg
+[BMW]: https://icns.ml/8ddddf/bmw.svg
 [Twitter]: https://icns.ml/234/twitter.svg
 [TypeScript]: https://icns.ml/gray/typescript.svg
 [GitHub]: https://icns.ml/orange/github.svg
 [Unsplash]: https://icns.ml/8cc055/unsplash.svg   
+[McDonalds]: https://icns.ml/f009/mcdonalds.svg
 
 ---  
 
@@ -137,6 +139,7 @@ Found a bug? Please [open an issue][issues] on the [repository].
 [icns.cf]: https://icns.cf
 [Nicholas Berlette]: https://github.com/nberlette
 [MIT]: https://icns.mit-license.org
+[naming]: https://github.com/simple-icons/simple-icons/blob/develop/slugs.md
 [SimpleRepo]: https://github.com/simple-icons/simple-icons
 [SimpleIcons]: https://simpleicons.org
 [tinycolor2]: https://npm.im/tinycolor2
