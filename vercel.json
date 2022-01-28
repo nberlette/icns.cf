@@ -58,10 +58,10 @@
       "dest": "/api/render.ts?slug=$name&color=$color&type=$type&$query"
     },
     {
-      "src": "^/(?<path>.+)?(?:[?](?<query>.*))?",
-      "dest": "/api/index.ts?path=$path&$query",
+      "src": "^/?(?:[?](?<query>.*))?",
+      "dest": "/api/index.ts?$query",
       "headers": {
-        "Cache-Control": "public, max-age=600, s-maxage=900, stale-while-revalidate=60, stale-if-error=86400"
+        "Cache-Control": "public, s-maxage=300, stale-while-revalidate=30, stale-if-error=7200"
       },
       "continue": false
     },
