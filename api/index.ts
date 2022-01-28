@@ -329,22 +329,25 @@ let homepage_head = `<!DOCTYPE html>
 let homepage = `
 <br>
 <div class="zi-card shadow">
-<pre class="zi-dark">
-${SITE_URL} / <strong>slug*</strong> <em>— color</em> . <em><strong>type</strong></em>†
-</pre>
-<pre class="zi-dark">
-${SITE_URL} / <em>color</em> / <strong>slug*</strong> . <em><strong>type</strong></em>†
-</pre>
+<table width="100%" cellspacing="2" cellpadding="5">
+  <th align="left" width="50%"><strong>Nested URL</strong></th>
+  <th align="left" width="50%"><strong>Linear/Flat URL</strong></th>
+  <tr>
+    <td><pre class="zi-dark">${SITE_URL} / <em>color</em> / <strong>slug*</strong> . <em><strong>type</strong></em>†</pre></td>
+    <td><pre class="zi-dark">${SITE_URL} / <strong>slug*</strong> <em>— color</em> . <em><strong>type</strong></em>†</pre></td>
+  </tr>
+</table>  
+<br>
 
 |         **Parameter** | **Usage**    | **Syntax**                                                                                                   | **Examples**                       |
 |----------------------:|:-------------|:-------------------------------------------------------------------------------------------------------------|:-----------------------------------|
 | <kbd>\`slug\`\*</kbd> | **required** | Alphanumeric - [see: naming convention ↗](https://github.com/simple-icons/simple-icons/blob/develop/slugs.md) | \`css3\`, \`nextdotjs\`, \`500px\` |
 |  <kbd>\`color\`</kbd> | **optional** | Valid CSS colors: hex (3/4/6/8), name, rgb, hsl, ...                                                         | \`fff\`, \`black\`, \`rgb(0,0,0)\` |
-| <kbd>\`type\`\†</kbd> | **advised**  | **\`.svg\`** (**\`.png\`** support coming soon)                                                       | \`.svg\`, \`.png\`                 |
+| <kbd>\`type\`\†</kbd> | **advised**  | **\`.svg\`** (raster support for \`png\` coming soon)                                                       | \`.svg\`, \`.png\`                 |
 
 <br>
 
-> **Examples**: [**\`${SITE_URL}/vercel.svg\`**](./vercel.svg) , [**\`${SITE_URL}/fc0/github.svg\`**](./fc0/github.svg) , [**\`${SITE_URL}/bmw-black.svg\`**](./bmw-black.svg)  
+> **Try it out**:  [**\`${SITE_URL}/vercel.svg\`**](./vercel.svg) • [**\`${SITE_URL}/fc0/github.svg\`**](./fc0/github.svg) • [**\`${SITE_URL}/bmw-black.svg\`**](./bmw-black.svg)  
 
 </div>
 <div class="zi-card">
