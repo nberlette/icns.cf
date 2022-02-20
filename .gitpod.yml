@@ -5,18 +5,25 @@ tasks:
     name: "icns"
     openMode: split-left
     before: |
-      pnpm install --global vercel tsm typescript simple-icons > /dev/null
-      pnpm install
-    command: pnpm run lint
+      which pnpm 2>&1 > /dev/null || npm i -g pnpm 2>&1 > /dev/null ;
+      pnpm install 2>&1 > /dev/null ;
+      pnpm i -g simple-icons degit vercel turbo typescript tsm tsup \
+           ts-node lodash-cli prettier 2>/dev/null ;
+    command: |
+      pnpm lint
+    
+  - # terminal 2 task list
+    name: "markdown"
+    openMode: split-right
 
 ports:
   - port: "3000-5000"
     onOpen: notify
 
 gitConfig:
-  user.name: Nicholas Berlette
-  user.email: nick@berlette.com
-  user.signingkey: 0DCD135F
+  user.name: "Nicholas Berlette"
+  user.email: "nick@berlette.com"
+  user.signingkey: "0DCD135F"
   commit.gpgsign: "true"
   tag.gpgsign: "true"
   credential.helper: "/usr/bin/gp credential-helper"
