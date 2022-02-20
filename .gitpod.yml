@@ -14,10 +14,9 @@ ports:
     onOpen: notify
 
 gitConfig:
-  github.user: "nberlette"
-  user.name: "Nicholas Berlette"
-  user.email: "nick@berlette.com"
-  user.signingkey: "1BE520A6"
+  user.name: Nicholas Berlette
+  user.email: nick@berlette.com
+  user.signingkey: 0DCD135F
   commit.gpgsign: "true"
   tag.gpgsign: "true"
   credential.helper: "/usr/bin/gp credential-helper"
