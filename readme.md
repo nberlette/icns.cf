@@ -70,16 +70,16 @@ With the goal of maximum compatibility, I've attempted to make the API as forgiv
 
 - [x] Reversed **color** and **slug** params will ***usually*** still resolve correctly...
 - [x] Default **color** is the icon's brand color [specified by the `simple-icons` package][SimpleIcons]
+- [x] Parses **color** with [`tinycolor2.toHex8String()`][tinycolor2], into a valid `hex8` (or `#000000ff`)
 - [x] CSS named colors (such as `slategray` or `rebeccapurple`) are supported
-- [x] RGB/RGBA colors are supported, but experimental
+- [x] RGB/RGBA colors are supported
 - [x] HSL/HSV colors are supported, but experimental
-- [x] Parses **color** with [`tinycolor2.toHex8String()`][tinycolor2], into a valid `hex8` (or `#00000000`)
 
 ### What is `Hex8`?
 
 You may be used to seeing hexadecimal colors only in 3 or 6 digit formats. The extra digit in `Hex4` and the 2 extra digits in `Hex8` are an **alpha channel**, which allows users to control the **opacity** levels of the color in question.
 
-> [icns.ml] supports **Hex 3, 4, 6, and 8**, [as defined in the MDN Web Docs][MDN-colors], meaning it **supports transparency on all 2,100+ [SimpleIcons]**!
+> [icns.ml] supports **Hex 3/4/6/8**, [as defined in the MDN Web Docs][MDN-colors], meaning it **supports transparency**!
 
 ---  
 
