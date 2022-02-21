@@ -1,13 +1,8 @@
 /dist
-/public
 /node_modules
 /docs
 /docs/*
 /docs/**/*
-license
-license.md
-LICENSE
-LICENSE.md
 .editorconfig
 .vscode
 /.vscode
@@ -18,4 +13,5 @@ LICENSE.md
 /.github
 /.github/*
 /.github/**/*
-pnpm-lock.yaml
+.devcontainer
+.devcontainer/*
