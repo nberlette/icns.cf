@@ -1,5 +1,5 @@
-import type { marked as Marked } from "marked";
-import { marked } from "marked";
+import type { marked as Marked } from 'marked';
+import { marked } from 'marked';
 
 /**
  * default locale for icns.ml's content
@@ -22,8 +22,7 @@ const LICENSE_URL = 'https://mit-license.org';
 const SITE_NAME = ICNS_URL.host;
 const SITE_TAGLINE = 'SimpleIcons as a Service'.toLocaleLowerCase(LOCALE);
 const SITE_TITLE = `${SITE_NAME} - ${SITE_TAGLINE}`;
-const SITE_DESCRIPTION =
-  `Over 2.1k vector icons from SimpleIcons - with a dynamic color API, always online via Vercel's Edge CDN, and 100% open source.`;
+const SITE_DESCRIPTION = `Over 2.1k vector icons from SimpleIcons - with a dynamic color API, always online via Vercel's Edge CDN, and 100% open source.`;
 const SITE_KEYWORDS = `icns,icns.ml,icns.cf,simpleicons,svg,icons,vercel,open-source,edge,design,graphics,ux,ui,ux/ui,\
 resources,designers,tools,vector,nberlette,berlette,png,api,branding,javascript,xml,web design,development,coding,companies`;
 
@@ -109,35 +108,27 @@ declare type SluggerOptions = Marked.SluggerOptions;
  * @extends {Parser} Marked.Parser
  * @namespace {Marked}
  */
-declare class Parser extends Marked.Parser {
-
-}
+declare class Parser extends Marked.Parser {}
 
 /**
  * @extends {Marked.Slugger} Slugger
  * @namespace {Marked}
  */
-declare class Slugger extends Marked.Slugger { 
-
-}
+declare class Slugger extends Marked.Slugger {}
 
 /**
  * @extends {Marked.Tokenizer} Tokenizer
  * @namespace {Marked}
  */
-declare class Tokenizer extends Marked.Tokenizer { 
-
-}
+declare class Tokenizer extends Marked.Tokenizer {}
 
 /**
  * @extends {Marked.TextRenderer} TextRenderer
  * @namespace {Marked}
  */
-declare class TextRenderer extends Marked.TextRenderer {
+declare class TextRenderer extends Marked.TextRenderer {}
 
-}
-
-/** 
+/**
  * Options for marked, the markdown parser tool.
  * @type {MarkedOptions}
  * @example marked('# My Markdown Content', { gfm: true, headerIds: true, mangle: true })
@@ -145,24 +136,24 @@ declare class TextRenderer extends Marked.TextRenderer {
  * @see {marked}
  */
 const markedOptions: MarkedOptions = {
-  baseUrl: SITE_URL,
-  gfm: true,
-  headerIds: true,
-  langPrefix: 'language-',
-  mangle: true,
-  pedantic: false,
-  sanitize: false,
-  silent: false,
-  smartLists: false,
-  smartypants: true,
-  xhtml: false
+	baseUrl: SITE_URL,
+	gfm: true,
+	headerIds: true,
+	langPrefix: 'language-',
+	mangle: true,
+	pedantic: false,
+	sanitize: false,
+	silent: false,
+	smartLists: false,
+	smartypants: true,
+	xhtml: false,
 };
 
 /**
  * Default options for the marked parser tool "marked".
  * @type {MarkedOptions}
  * @see {marked}
- * @default { 
+ * @default {
  *   baseUrl: null,
  *   breaks: false,
  *   extensions: [],
@@ -187,41 +178,41 @@ const markedOptions: MarkedOptions = {
 const markedDefaults: MarkedOptions = marked.getDefaults();
 
 export {
-  LOCALE,
-  LOCALE as SITE_LOCALE,
-  ICNS_URL,
-  SITE_URL,
-  SITE_NAME,
-  SITE_TAGLINE,
-  SITE_TITLE,
-  SITE_DESCRIPTION,
-  SITE_KEYWORDS,
-  GITHUB_URL,
-  GITPOD_URL,
-  VERCEL_URL,
-  LICENSE_URL,
-  AUTHOR_NAME,
-  AUTHOR_URL,
-  AUTHOR_TWITTER,
-  AUTHOR_NAME as SITE_AUTHOR_NAME,
-  AUTHOR_URL as SITE_AUTHOR_URL,
-  AUTHOR_TWITTER as SITE_TWITTER,
-  DISPLAY_ICONS_COUNT,
-  markedOptions,
-  markedOptions as MARKED_OPTIONS,
-  markedDefaults,
-  markedDefaults as MARKED_DEFAULTS
-}
+	LOCALE,
+	LOCALE as SITE_LOCALE,
+	ICNS_URL,
+	SITE_URL,
+	SITE_NAME,
+	SITE_TAGLINE,
+	SITE_TITLE,
+	SITE_DESCRIPTION,
+	SITE_KEYWORDS,
+	GITHUB_URL,
+	GITPOD_URL,
+	VERCEL_URL,
+	LICENSE_URL,
+	AUTHOR_NAME,
+	AUTHOR_URL,
+	AUTHOR_TWITTER,
+	AUTHOR_NAME as SITE_AUTHOR_NAME,
+	AUTHOR_URL as SITE_AUTHOR_URL,
+	AUTHOR_TWITTER as SITE_TWITTER,
+	DISPLAY_ICONS_COUNT,
+	markedOptions,
+	markedOptions as MARKED_OPTIONS,
+	markedDefaults,
+	markedDefaults as MARKED_DEFAULTS,
+};
 
 export type {
-  MarkedOptions,
-  MarkedRules,
-  SluggerOptions,
-  Token,
-  TokensList,
-  MarkedExtension,
-  RendererExtension,
-  RendererObject,
-  TokenizerExtension,
-  TokenizerObject,
-}
+	MarkedOptions,
+	MarkedRules,
+	SluggerOptions,
+	Token,
+	TokensList,
+	MarkedExtension,
+	RendererExtension,
+	RendererObject,
+	TokenizerExtension,
+	TokenizerObject,
+};
