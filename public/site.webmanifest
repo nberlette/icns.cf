@@ -11,19 +11,14 @@
   "orientation": "portrait-primary",
   "icons": [
     {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
       "src": "/favicon.png",
       "type": "image/png",
       "sizes": "96x96",
-      "purpose": "any"
-    },
-    {
-      "src": "/favicon.ico",
-      "type": "image/x-icon",
-      "purpose": "any"
-    },
-    {
-      "src": "/favicon.svg",
-      "type": "image/svg+xml",
       "purpose": "any"
     },
     {

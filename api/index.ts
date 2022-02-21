@@ -55,15 +55,15 @@ let homepage = `<!DOCTYPE html>
 <meta property="og:image" content="/og.png" />
 <meta property="og:url" content="${SITE_URL}/?utm_source=opengraph" />
 <meta name="author" content="${SITE_AUTHOR_NAME}" />
-<!--<meta name="canonical" property="canonical" content="${SITE_URL}/" />
-<link rel="canonical" href="${SITE_URL}/" type="canonical" />-->
+<meta name="canonical" property="canonical" content="${SITE_URL}/" />
+<link rel="canonical" href="${SITE_URL}/" type="canonical" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" type="image/png" />
-<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="icon" href="/mstile-144x144.png" type="image/png" />
 <link rel="mask-icon" href="/safari-pinned-tab.svg" type="image/svg+xml" color="#223344" />
 <link rel="icon" href="/favicon-16x16.png" type="image/png" />
 <link rel="icon" href="/favicon-32x32.png" type="image/png" />
 <link rel="manifest" href="/site.webmanifest" type="application/json+manifest" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <meta name="msapplication-TileColor" content="#223344" />
 <meta name="theme-color" content="#223344" />
 <meta name="mobile-web-app-capable" content="yes" />
