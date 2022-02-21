@@ -2,326 +2,90 @@
 import type { Response, Request } from './utils';
 import icons, { SimpleIcon } from 'simple-icons';
 import { marked } from 'marked';
-import { tc } from './utils'
+import { tc } from './utils';
+import { sample, sampleSize } from 'lodash';
 import {
-  SITE_URL,
-  SITE_NAME,
-  SITE_TAGLINE,
-  SITE_TITLE,
-  SITE_DESCRIPTION,
-  SITE_KEYWORDS,
-  SITE_TWITTER,
-  SITE_AUTHOR_URL,
-  SITE_AUTHOR_NAME,
-  GITHUB_URL,
-  LICENSE_URL,
-  VERCEL_URL,
-  DISPLAY_ICONS_COUNT,
-  markedOptions,
-  MarkedOptions
+	SITE_URL,
+	SITE_NAME,
+	SITE_TAGLINE,
+	SITE_TITLE,
+	SITE_DESCRIPTION,
+	SITE_KEYWORDS,
+	SITE_TWITTER,
+	SITE_AUTHOR_URL,
+	SITE_AUTHOR_NAME,
+	GITHUB_URL,
+	LICENSE_URL,
+	VERCEL_URL,
+	DISPLAY_ICONS_COUNT,
+	markedOptions,
+	MarkedOptions,
 } from './constants';
-
 
 // I know, it's disgusting... but it works for the time being :)
 try {
-  delete icons.Get;
+	delete icons.Get;
 } catch {}
 
-const randomIcons: any[] = Object
-  .values(icons)
-  .sort((a, b) => Math.random() > 0.5 ? -1 : 1)
-  .slice(0, DISPLAY_ICONS_COUNT);
+const randomIcons: any[] = sampleSize(Object.values(icons), DISPLAY_ICONS_COUNT);
 
-let homepage_head = `<!DOCTYPE html>
+let homepage = `<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>${SITE_TITLE}</title>
-    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0" />
-    <meta charSet="utf-8" />
-
-    <meta name="title" content="${SITE_TITLE}" />
-    <meta name="description" content="${SITE_DESCRIPTION}" />
-    <meta name="keywords" content="${SITE_KEYWORDS}" />
-
-    <meta name="twitter:site" content="${SITE_TWITTER}" />
-    <meta name="twitter:user_id" content="${SITE_TWITTER}" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="${SITE_URL}/og.png" />
-    <meta name="twitter:image:src" content="${SITE_URL}/og.png" />
-    <meta name="twitter:title" content="${SITE_NAME}" />
-    <meta name="twitter:description" content="${SITE_TAGLINE}" />
-    <meta name="twitter:url" content="${SITE_URL}/?utm_source=twitter" />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="${SITE_NAME}" />
-    <meta property="og:description" content="${SITE_TAGLINE}" />
-    <meta property="og:image" content="${SITE_URL}/og.png" />
-    <meta property="og:url" content="${SITE_URL}/?utm_source=opengraph" />
-
-    <meta name="author" content="${SITE_AUTHOR_NAME}" />
-    <meta name="canonical" property="canonical" content="${SITE_URL}/" />
-    <link rel="canonical" href="${SITE_URL}/" type="canonical" />
-
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" type="image/png" purpose="any" sizes="180x180" />
-    <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" purpose="maskable any" />
-    <link rel="icon" href="/mstile-144x144.png" type="image/png" sizes="144x144" purpose="any" />
-    <link rel="safari-pinned-tab" href="/safari-pinned-tab.svg" type="image/svg+xml" color="#223344" purpose="maskable safari-pinned-tab any" />
-    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
-    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
-
-    <link rel="stylesheet" href="https://unpkg.com/@geist-ui/style/dist/style.css" type="text/css" />
-    <link rel="preload" href="/assets/fonts.css" as="font" />
-
-    <style type="text/css">      
-      .light, :root {
-        --icns-background: #fff;
-        --icns-foreground: #234;
-        --body-gradient-from: #ffff;
-        --body-gradient-to: #fff0;
-        --icns-background-hero: #e7f0f0;
-        --icns-foreground-hero: #59657c;
-        --icns-background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%2359657c' fill-opacity='0.33'%3E%3Cpath opacity='0.45' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        --icns-logo-shadow-hover: 0 0.3rem 0.1rem;
-        --icns-logo-shadow: 0.3rem 2rem 1.2rem;
-        --icns-logo-shadow-color: #11223322;
-        --icns-logo-shadow-hover-color: #11223322;
-        --icons-width: 5vw;
-        --icons-opacity: 0.75;
-        --icons-hover-opacity: 0.9;
-        --icons-transition-duration: 0.75s;
-        --icns-github-corner-fill: #234 !important;
-        --icns-github-corner-color: #fff !important;
-        --font-mono: 'MonoLisa', 'Operator Mono Lig', 'Operator Mono', Menlo, Monaco, Lucida Console, 'Liberation Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', Courier New,monospace;
-      }
-      .dark, .dark-theme {
-        --icns-background: #234f;
-        --icns-foreground: #f0f0f0;
-        --body-gradient-from: #234f;
-        --body-gradient-to: #2340;
-        --icns-background-hero: #59657c;
-        --icns-foreground-hero: #e7f0f0;
-        --icns-background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23e7f0f0' fill-opacity='0.25'%3E%3Cpath opacity='0.45' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") !important;
-        --icns-github-corner-fill: #e7f0f0 !important;
-        --icns-github-corner-color: #223344 !important;
-      }
-
-      html, body {
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        min-width: 100vw;
-        width: 100vw;
-        height: 100vh;
-      }
-
-      html {
-        background: var(--icns-background-hero, #e7f0f0) var(--icns-background-image) top left repeat fixed;
-      }
-
-      body:before {
-        content: '';
-        display: block;
-        width: 100vw;
-        height: 100vh;
-        min-width: 100vw;
-        min-height: 100vh;
-        position: fixed;
-        top: 0;
-        left: 0;
-        box-shadow: inset 0 0 14vw 10vw var(--icns-background, #f0f0f0);
-        z-index: -1;
-        opacity: 1;
-        background: radial-gradient(
-          50% 50% at 50% 50%,
-          var(--body-gradient-from) 0%,
-          var(--body-gradient-to) 100%
-        );
-      }
-
-      body {
-        padding: 0 0 2rem 0;
-        background: transparent !important;
-      }
-
-      body > .container {
-        max-width: 70vw;
-        margin: 2rem auto;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-      }
-
-      code::before, code::after {
-        content: '' !important;
-      }
-
-      pre, code, kbd {
-        font-family: 'MonoLisa', 'monolisa', 'Mono Lisa', var(--font-mono, monospace) !important;
-        font-weight: normal;
-        font-style: regular;
-      }
-
-      .markdown-body {
-        max-width: 90vw;
-        margin: 1rem auto;
-        background: transparent !important;
-      }
-
-      .container > div {
-        margin: 1rem 0;
-      }
-
-      header {
-        width: 100%;
-        margin: 4rem 0 2rem 0;
-        position: relative;
-        display: grid;
-        place-items: center;
-        align-items: center;
-      }
-
-      header h1 {
-        width: fit-content;
-        margin: 2rem auto 1rem auto;
-      }
-
-      header h3 {
-        font-size: 1rem !important;
-        text-shadow: var(--shadow-small);
-        color: var(--accents-8) !important;
-        transition: text-shadow 0.4s ease-in-out;
-        text-transform: lowercase !important;
-        margin: 0;
-        padding: 0;
-      }
-
-      header h3 a {
-        color: inherit !important;
-      }
-
-      small.caps {
-        text-transform: uppercase !important;
-        font-weight: 700 !important;
-        font-size: 0.95em;
-      }
-
-      header h3:hover {
-        text-shadow: var(--shadow-medium);
-      }
-
-        header h3 img {
-          width: 1.2rem;
-          height: 1.2rem;
-          padding: 7px 8px 0 8px;
-        }
-
-      header svg.logo {
-        width: auto;
-        min-width: 20vw;
-        max-width: 30vw;
-        filter: drop-shadow(var(--icns-logo-shadow-hover) var(--icns-logo-shadow-hover-color, #11223322));
-        transition: all 1s ease-in-out;
-      }
-
-      h1:hover svg.logo,
-      h1 svg.logo:hover {
-        filter: drop-shadow(var(--icns-logo-shadow) var(--icns-logo-shadow-color, #11223322));
-      }
-
-      .zi-card {
-         margin: 2rem 0 !important; 
-         box-shadow: var(--shadow-large), var(--shadow-small) !important;
-         transition: box-shadow 0.5s ease-in-out;
-      }
-      .zi-card:hover {
-        box-shadow: var(--shadow-medium), var(--shadow-small) !important;
-      }
-      .zi-dark {
-        background: var(--accents-8) !important;
-        color: var(--accents-1) !important;
-        border-color: var(--accents-7) !important;
-      }
-      .footer.zi-dark, .footer.dark, footer.dark, .dark footer {
-        color: var(--accents-1) !important;
-      }
-      .footer.zi-dark a, .footer.dark a, .dark footer a, footer.dark a {
-        color: var(--accents-2) !important;
-        text-decoration: none;
-        font-weight: bold;
-      }
-      footer a img {
-        opacity: 0.75;
-        transition: opacity 0.3s ease-in;
-        padding: 5px 8px 0 8px;
-      }
-      footer a:hover img, footer a img:hover {
-        opacity: 1;
-      }
-      .url {
-        border-radius: 8px;
-        border: 2px solid var(--accents-2);
-        background-color: var(--accents-1);
-        font-style: italic;
-        color: var(--icns-foreground);
-        cursor: pointer;
-        padding: 10px;
-        transition: all 0.5s ease-in;
-        position: relative;
-        overflow: hidden;
-      }
-      .url.success, .success .url {
-        border-color: seagreen !important;
-      }
-      .url > span {
-        font-size: 1.1rem;
-      }
-      .url > span:before {
-        background: seagreen;
-        content: '✔️ copied';
-        color: white !important;
-        display: block;
-        opacity: 0;
-        transition: opacity 0.8s ease-in-out;
-        padding: 10px;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        text-shadow: 0 3px 6px #0002, 0 1px 1px #0003;
-      }
-      .success .url > .span:before, .url.success > span:before {
-        opacity: 0.9;
-      }
-      a.github-corner {
-        color: var(--icns-github-corner-color, #fff) !important;
-        text-decoration: none !important;
-      }
-      .github-corner:hover .octo-arm {
-        animation:octocat-wave 666ms ease-in-out;
-      }
-      @keyframes octocat-wave{
-        0%,100%{transform:rotate(0)}
-        20%,60%{transform:rotate(-20deg)}
-        40%,80%{transform:rotate(10deg)}
-      }
-      @media (max-width:500px) {
-        .github-corner:hover .octo-arm{animation:none}
-        .github-corner .octo-arm{animation:octocat-wave 666ms ease-in-out}
-      }
-
-</style>
+<title>${SITE_TITLE}</title>
+<link rel="preload" href="/assets/geist.css" as="style" type="text/css" />
+<link rel="preload" href="/assets/style.css" as="style" type="text/css" />
+<link rel="preload" href="/assets/fonts.css" as="style" type="text/css" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0" />
+<meta charSet="utf-8" />
+<meta name="title" content="${SITE_TITLE}" />
+<meta name="description" content="${SITE_DESCRIPTION}" />
+<meta name="keywords" content="${SITE_KEYWORDS}" />
+<meta name="twitter:site" content="${SITE_TWITTER}" />
+<meta name="twitter:user_id" content="${SITE_TWITTER}" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="/og.png" />
+<meta name="twitter:image:src" content="/og.png" />
+<meta name="twitter:title" content="${SITE_NAME}" />
+<meta name="twitter:description" content="${SITE_TAGLINE}" />
+<meta name="twitter:url" content="${SITE_URL}/?utm_source=twitter" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="${SITE_NAME}" />
+<meta property="og:description" content="${SITE_TAGLINE}" />
+<meta property="og:image" content="/og.png" />
+<meta property="og:url" content="${SITE_URL}/?utm_source=opengraph" />
+<meta name="author" content="${SITE_AUTHOR_NAME}" />
+<meta name="canonical" property="canonical" content="${SITE_URL}/" />
+<link rel="canonical" href="${SITE_URL}/" type="canonical" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" type="image/png" />
+<link rel="icon" href="/mstile-144x144.png" type="image/png" />
+<link rel="mask-icon" href="/safari-pinned-tab.svg" type="image/svg+xml" color="#223344" />
+<link rel="icon" href="/favicon-16x16.png" type="image/png" />
+<link rel="icon" href="/favicon-32x32.png" type="image/png" />
+<link rel="manifest" href="/site.webmanifest" type="application/json+manifest" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<meta name="msapplication-TileColor" content="#223344" />
+<meta name="theme-color" content="#223344" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="application-name" content="${SITE_NAME}" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="${SITE_NAME}" />
+<link rel="stylesheet" href="/assets/geist.css" type="text/css" />
+<link rel="stylesheet" href="/assets/fonts.css" type="text/css" />
+<link rel="stylesheet" href="/assets/style.css" type="text/css" />
 <script nonce="icns">
-  var $cl = document.documentElement.classList;
-  var theme_user = ('theme' in window.localStorage) ? window.localStorage.theme : 'auto';
-  var theme_system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  if ((theme_system == 'dark' && theme_user == 'auto') || theme_user == 'dark') {
-    $cl.toggle('dark-theme', true);
-    $cl.toggle('dark', true);
-    $cl.toggle('light', false);
-  } else {
-    $cl.toggle('dark-theme', false);
-    $cl.toggle('dark', false);
-    $cl.toggle('light', true);
-  }
+var $cl = document.documentElement.classList;
+var theme_user = ('theme' in window.localStorage) ? window.localStorage.theme : 'auto';
+var theme_system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+if ((theme_system == 'dark' && theme_user == 'auto') || theme_user == 'dark') {
+$cl.toggle('dark-theme', true);
+$cl.toggle('dark', true);
+$cl.toggle('light', false);
+} else {
+$cl.toggle('dark-theme', false);
+$cl.toggle('dark', false);
+$cl.toggle('light', true);
+}
 </script>
 </head>
 <body>
@@ -349,15 +113,12 @@ let homepage_head = `<!DOCTYPE html>
     <span><a href="https://vercel.com" target="_blank" rel="noopener noreferrer">Vercel's Edge Network</a></span>
   </h3>
 </header>
-`;
-
-let homepage = `
 <br>
 <div class="zi-card shadow">
 <table width="100%" cellspacing="2" cellpadding="5">
   <th align="left" width="50%"><strong>Nested URL</strong></th>
   <th align="left" width="50%"><strong>Linear/Flat URL</strong></th>
-  <tr>
+  <tr style="margin-top:5px;">
     <td><pre class="zi-dark">${SITE_URL} / <em>color</em> / <strong>slug*</strong> . <em><strong>type</strong></em>†</pre></td>
     <td><pre class="zi-dark">${SITE_URL} / <strong>slug*</strong> <em>— color</em> . <em><strong>type</strong></em>†</pre></td>
   </tr>
@@ -380,11 +141,10 @@ let homepage = `
 {{icons}}
 </table>
 </div>
-`;
 
-let homepage_foot = `<footer align="center" class="zi-card zi-dark dark footer">
+<footer align="center" class="zi-card zi-dark dark footer">
   <a href="${LICENSE_URL}" target="_blank" rel="noopener noreferrer" title="MIT License" aria-label="MIT License">MIT</a> <small>&copy;</small>
-  <a href="${SITE_AUTHOR_URL}" target="_blank" rel="noopener" title="Another Pandemic Project by ${SITE_AUTHOR_NAME}" aria-label="Another Pandemic Project">${SITE_AUTHOR_NAME}</a> &middot; 
+  <a href="${SITE_AUTHOR_URL}" target="_blank" rel="noopener" title="Another Pandemic Project by ${SITE_AUTHOR_NAME}" aria-label="Another Pandemic Project by ${SITE_AUTHOR_NAME}">${SITE_AUTHOR_NAME}</a> &middot; 
   <a href="https://simpleicons.org" target="_blank" rel="noopener noreferrer" title="Icons by SimpleIcons.org" aria-label="Icons by SimpleIcons.org">simpleicons.org</a> &middot;
   <a href="${VERCEL_URL}" target="_blank" rel="noopener noreferrer" title="Deploy on Vercel!" aria-label="Deploy on Vercel">vercel.com</a>
 </footer>
@@ -395,21 +155,34 @@ let homepage_foot = `<footer align="center" class="zi-card zi-dark dark footer">
   var $$ = (s) => [...document.querySelectorAll(s)];
 
   function $attr (selector, attr, value = null) {
-    !!(value) && $(selector).setAttribute(attr, value);
+    if (value != null) $(selector).setAttribute(attr, value);
     return $(selector).getAttribute(attr);
   }
+  function handleError (err) {
+    var labelColor = 'background:#c00;color:#fff;border-bottom:1px solid #a00;font-weight:700;display:inline-block;padding:2px 8px;';
+    var messageColor = 'color:#444;font-weight:400;font-style:italic;display:inline-block;padding:2px 8px;';
+    var message = 'message' in err ? err.message : (err.toSring() || err);
+    console.error('%c ERROR %c %s', labelColor, messageColor, message);
+  }
 
-  async function clip (slug, base_url = '${SITE_URL}', toast_duration = 3000) {
-    const url = new URL(slug+'.svg', base_url).href;
+  async function clip (slug, baseUrl = '${SITE_URL}', duration = 3000) {
+    const url = (new URL(slug + '.svg', baseUrl) || { href: (baseUrl + '/' + slug + '.svg') }).href;
+    const $cl = $('#url-' + slug).classList;
     try {
-      await navigator.clipboard.writeText(url);
-      $('#url-'+slug).classList.add('success'); 
-
-      setTimeout(() => {
-        $('#url-'+slug).classList.remove('success');
-      }, toast_duration);
+      await navigator.clipboard.writeText(url)
+        .catch(err => {
+          handleError(err);
+          $cl.add('error');
+        })
+        .then(() => $cl.add('success'))
+        .finally(() => {
+          setTimeout(() => $cl.remove('success'), duration);
+          setTimeout(() => $cl.remove('error'), duration * 1.5);
+        })
     } catch (err) {
-      console.error(err);
+      handleError(err);
+      $cl.add('error');
+      setTimeout(() => $cl.remove('error'), duration * 1.5);
     }
   }
 </script>
@@ -424,10 +197,11 @@ const iconsTableRow = `<tr>
   </a>
   </td>
   <td>
-      <a href="javascript:clip('{{SLUG}}');"
+      <a href="javascript:clip('{{SLUG}}', new URL(window.location.href).origin);"
          id="copy-{{SLUG}}" 
          class="copyurl"
          data-url="{{URL}}" 
+         data-slug="{{SLUG}}"
          title="Copy &quot;{{URL}}&quot; to Clipboard"
          style="position:relative"
       >
@@ -437,19 +211,23 @@ const iconsTableRow = `<tr>
 </tr>`;
 
 function parseMarkdownWithIcons(source: string, options: MarkedOptions = {}): string {
-  let result = marked.parse(source, Object.assign({}, marked.getDefaults(), options))
-  return result.replace(/[{]{1,2}\s?icons\s?[}]{1,2}/ig, randomIcons.map(
-    (icon: SimpleIcon): string =>
-      iconsTableRow.replace(/[{]{1,2}\s?icon\s?[}]{1,2}/ig, `${icon.slug}.svg`)
-          .replace(/[{]{1,2}\s?url\s?[}]{1,2}/ig, `${SITE_URL}/${icon.slug}.svg`)
-          .replace(/[{]{1,2}\s?title\s?[}]{1,2}/ig, icon.title)
-          .replace(/[{]{1,2}\s?slug\s?[}]{1,2}/ig, icon.slug)
-          .replace(/[{]{1,2}\s?hex\s?[}]{1,2}/ig, tc(icon.hex).toHexString())
-    ).join('\n'))
+	let result = marked.parse(source, Object.assign({}, marked.getDefaults(), options));
+	return result.replace(
+		/[{]{1,2}\s?icons\s?[}]{1,2}/gi,
+		randomIcons
+			.map((icon: SimpleIcon): string =>
+				iconsTableRow
+					.replace(/[{]{1,2}\s?icon\s?[}]{1,2}/gi, `${icon.slug}.svg`)
+					.replace(/[{]{1,2}\s?url\s?[}]{1,2}/gi, `${SITE_URL}/${icon.slug}.svg`)
+					.replace(/[{]{1,2}\s?title\s?[}]{1,2}/gi, icon.title)
+					.replace(/[{]{1,2}\s?slug\s?[}]{1,2}/gi, icon.slug)
+					.replace(/[{]{1,2}\s?hex\s?[}]{1,2}/gi, tc(icon.hex).toHexString())
+			)
+			.join('\n')
+	);
 }
 
-export default async function handler (req: Request, res: Response) {
-  homepage = parseMarkdownWithIcons(homepage, markedOptions);
-  res.setHeader('Content-Type', 'text/html;charset=utf-8');
-  res.status(200).send(`${homepage_head}${homepage}${homepage_foot}`);
+export default async function handler(req: Request, res: Response) {
+	res.setHeader('Content-Type', 'text/html;charset=utf-8');
+  res.status(200).send(parseMarkdownWithIcons(homepage, { ...markedOptions }));
 }

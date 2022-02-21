@@ -2,24 +2,37 @@ image: nberlette/gitpod-enhanced
 
 tasks:
   - # terminal 1 task list
-    name: "icns"
+    name: "setup"
     openMode: split-left
-    before: |
-      pnpm install --global vercel tsm typescript simple-icons > /dev/null
-      pnpm install
-    command: pnpm run lint
+    before: (
+        which pnpm > /dev/null 2>&1 || npm i -g pnpm > /dev/null 2>&1;
+        pnpm install 2>&1 > /dev/null;
+        pnpm install --global \
+             vercel turbo \
+             degit esm bundt \
+             typescript tsm ts-node \
+             lodash-cli \
+             prettier eslint \
+             svglint svgo \
+             jsonlint
+      ) >/dev/null 2>&1
+    command: pnpm lint
+    
+  - # terminal 2 task list
+    name: "icns"
+    openMode: split-right
 
 ports:
   - port: "3000-5000"
     onOpen: notify
 
 gitConfig:
-  github.user: "nberlette"
   user.name: "Nicholas Berlette"
   user.email: "nick@berlette.com"
-  user.signingkey: "1BE520A6"
+  user.signingkey: "0DCD135F"
   commit.gpgsign: "true"
   tag.gpgsign: "true"
+  # gpg.program: "/usr/local/bin/gpg"
   credential.helper: "/usr/bin/gp credential-helper"
 
 github:
@@ -34,14 +47,17 @@ github:
 
 vscode:
   extensions:
-    - esbenp.prettier-vscode
-    - editorconfig.editorconfig
     - github.copilot-nightly
-    - peterhdd.github-folder
+    - eamodio.gitlens
     - vsls-contrib.gistfs
     - github.vscode-codeql
+    - peterhdd.github-folder
     - cschleiden.vscode-github-actions
-    - eamodio.gitlens
+    - esbenp.prettier-vscode
+    - editorconfig.editorconfig
+    - antfu.slidev
+    - antfu.unocss
+    - antfu.vite
     - jock.svg
     - redhat.vscode-yaml
     - gamunu.vscode-yarn
@@ -49,6 +65,5 @@ vscode:
     - eg2.vscode-npm-script
     - christian-kohler.npm-intellisense
     - christian-kohler.path-intellisense
-    - ms-vscode.live-server
     - davidanson.vscode-markdownlint
     - darkriszty.markdown-table-prettify

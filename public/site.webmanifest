@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest.json",
+  "id": "/",
+  "start_url": "/",
+  "name": "icns.ml",
+  "short_name": "icns",
+  "lang": "en-US",
+  "display": "fullscreen",
+  "theme_color": "#223344",
+  "background_color": "#f7f8fa",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.png",
+      "type": "image/png",
+      "sizes": "96x96",
+      "purpose": "any"
+    },
+    {
+      "src": "/mstile-144x144.png",
+      "type": "image/png",
+      "purpose": "any",
+      "sizes": "144x144"
+    },
+    {
+      "src": "/safari-pinned-tab.svg",
+      "type": "image/svg+xml",
+      "purpose": "monochrome maskable any",
+      "sizes": "any"
+    },
+    {
+      "src": "/favicon-16x16.png",
+      "type": "image/png",
+      "sizes": "16x16",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "type": "image/png",
+      "sizes": "32x32",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "type": "apple-touch-icon",
+      "purpose": "any",
+      "sizes": "180x180"
+    }
+  ]
+}

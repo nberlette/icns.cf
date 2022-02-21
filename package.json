@@ -2,34 +2,65 @@
   "name": "icns",
   "version": "0.1.0",
   "license": "MIT",
+  "private": false,
   "author": {
     "name": "Nicholas Berlette",
     "email": "nick@berlette.com",
-    "url": "https://berlette.com"
+    "url": "https://n.berlette.com/icns"
   },
-  "private": false,
-  "homepage": "https://icns.ml",
   "repository": "nberlette/icns",
+  "homepage": "https://icns.ml",
   "readme": "https://github.com/nberlette/icns#readme",
-  "bugs": "https://github.com/nberlette/icns/issues",
+  "bugs": {
+    "url": "https://github.com/nberlette/icns/issues",
+    "email": "issues@icns.ml"
+  },
   "scripts": {
-    "types": "tsc -d --skipLibCheck --emitDeclarationOnly --allowJs",
-    "build": "tsc",
-    "dev": "tsc --watch",
-    "deploy": "vercel --prod"
+    "build": "tsc --skipLibCheck",
+    "types": "tsc --skipLibCheck --declaration --emitDeclarationOnly",
+    "prebuild": "nr format",
+    "dev": "nr build --watch",
+    "preview": "nr format; vercel",
+    "deploy": "nr format; vercel --prod",
+    "release": "nr release:${1:-patch}",
+    "release:patch": "nr format; git commit -a -m '[patch]: prepare for release' --gpg-sign; nr bump patch; git push --follow-tags",
+    "release:minor": "nr format; git commit -a -m '[minor]: prepare for release' --gpg-sign; nr bump minor; git push --follow-tags",
+    "release:major": "nr format; git commit -a -m '[major]: prepare for release' --gpg-sign; nr bump major; git push --follow-tags",
+    "bump": "pnpm version --sign-git-tag ${@:-patch}",
+    "lint": "prettier --check '**/*.{ts,js,tsx,jsx,css,webmanifest}'",
+    "format": "nr lint --write"
+  },
+  "packageManager": "pnpm@6.31.0",
+  "prettier": {
+    "printWidth": 120,
+    "useTabs": true,
+    "tabWidth": 2,
+    "arrowParens": "avoid",
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "quoteProps": "consistent",
+    "bracketSpacing": true
   },
   "devDependencies": {
+    "@antfu/ni": "0.13.0",
+    "@types/lodash": "4.14.178",
     "@types/marked": "4.0.1",
     "@types/node": "17.0.10",
     "@types/tinycolor2": "1.4.3",
-    "tslib": "^2.3.1",
-    "tsm": "^2.2.1",
-    "typescript": "4.5.4"
+    "pnpm": "6.31.0",
+    "prettier": "2.5.1",
+    "prettier-plugin-sh": "0.8.1",
+    "tslib": "2.3.1",
+    "tsm": "2.2.1",
+    "typescript": "4.5.4",
+    "vercel": "24.0.0"
   },
   "dependencies": {
     "@vercel/node": "1.12.1",
-    "marked": "^4.0.10",
-    "simple-icons": "latest",
+    "lodash": "4.17.21",
+    "marked": "4.0.10",
+    "simple-icons": "^6.11.0",
     "tinycolor2": "1.4.2"
   }
 }

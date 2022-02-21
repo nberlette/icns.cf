@@ -1,4 +1,4 @@
-MIT License
+# The MIT License (MIT)
 
 Copyright (c) 2022 Nicholas Berlette <nick@berlette.com>
 
