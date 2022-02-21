@@ -1,4 +1,28 @@
 {
   "git.enableCommitSigning": true,
-  "svg.preview.background": "transparent"
+  "svg.preview.background": "transparent",
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#334c66",
+    "activityBar.activeBorder": "#150b10",
+    "activityBar.background": "#334c66",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBarBadge.background": "#150b10",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "editorGroup.border": "#334c66",
+    "panel.border": "#334c66",
+    "sash.hoverBorder": "#334c66",
+    "sideBar.border": "#334c66",
+    "statusBar.background": "#223344",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#334c66",
+    "statusBarItem.remoteBackground": "#223344",
+    "statusBarItem.remoteForeground": "#e7e7e7",
+    "tab.activeBorder": "#334c66",
+    "titleBar.activeBackground": "#223344",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#22334499",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
+  "peacock.remoteColor": "#223344"
 }
