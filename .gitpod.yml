@@ -1,38 +1,31 @@
 image: nberlette/gitpod-enhanced
 
 tasks:
-  - # terminal 1 task list
-    name: "setup"
+  - name: "init"
     openMode: split-left
-    before: (
-        which pnpm > /dev/null 2>&1 || npm i -g pnpm > /dev/null 2>&1;
-        pnpm install 2>&1 > /dev/null;
-        pnpm install --global \
-             vercel turbo \
-             degit esm bundt \
-             typescript tsm ts-node \
-             lodash-cli \
-             prettier eslint \
-             svglint svgo \
-             jsonlint
-      ) >/dev/null 2>&1
-    command: pnpm lint
+    init: |
+      which pnpm > /dev/null 2>&1 || (
+        curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
+      ) 2>/dev/null ;
+      (
+        pnpm add -g vercel turbo degit bundt typescript tsm ts-node 2>/dev/null;
+        pnpm add -g prettier eslint svglint svgo 2>/dev/null ;
+      ) 2>/dev/null ;
+    command: |
+      pnpm it 2>/dev/null ;
     
-  - # terminal 2 task list
-    name: "icns"
+  - name: "lint"
     openMode: split-right
+    command: |
+      pnpm lint --if-present
 
 ports:
   - port: "3000-5000"
     onOpen: notify
 
 gitConfig:
-  user.name: "Nicholas Berlette"
-  user.email: "nick@berlette.com"
-  user.signingkey: "0DCD135F"
   commit.gpgsign: "true"
   tag.gpgsign: "true"
-  # gpg.program: "/usr/local/bin/gpg"
   credential.helper: "/usr/bin/gp credential-helper"
 
 github:
@@ -55,9 +48,6 @@ vscode:
     - cschleiden.vscode-github-actions
     - esbenp.prettier-vscode
     - editorconfig.editorconfig
-    - antfu.slidev
-    - antfu.unocss
-    - antfu.vite
     - jock.svg
     - redhat.vscode-yaml
     - gamunu.vscode-yarn
@@ -65,5 +55,8 @@ vscode:
     - eg2.vscode-npm-script
     - christian-kohler.npm-intellisense
     - christian-kohler.path-intellisense
+    - voorjaar.windicss-intellisense
+    - antfu.unocss
+    - antfu.vite
     - davidanson.vscode-markdownlint
     - darkriszty.markdown-table-prettify
