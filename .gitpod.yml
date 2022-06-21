@@ -41,7 +41,6 @@ github:
 vscode:
   extensions:
     - github.copilot-nightly
-    - eamodio.gitlens
     - vsls-contrib.gistfs
     - github.vscode-codeql
     - peterhdd.github-folder
@@ -50,7 +49,6 @@ vscode:
     - editorconfig.editorconfig
     - jock.svg
     - redhat.vscode-yaml
-    - gamunu.vscode-yarn
     - jacano.vscode-pnpm
     - eg2.vscode-npm-script
     - christian-kohler.npm-intellisense
@@ -58,5 +56,6 @@ vscode:
     - voorjaar.windicss-intellisense
     - antfu.unocss
     - antfu.vite
+    - antfu.iconify
     - davidanson.vscode-markdownlint
     - darkriszty.markdown-table-prettify
