@@ -6,15 +6,12 @@
   "author": {
     "name": "Nicholas Berlette",
     "email": "nick@berlette.com",
-    "url": "https://n.berlette.com/icns"
+    "url": "https://github.com/nberlette"
   },
   "repository": "nberlette/icns",
   "homepage": "https://icns.ml",
-  "readme": "https://github.com/nberlette/icns#readme",
-  "bugs": {
-    "url": "https://github.com/nberlette/icns/issues",
-    "email": "issues@icns.ml"
-  },
+  "readme": "https://github.com/nberlette/icns.cf#readme",
+  "bugs": "https://github.com/nberlette/icns.cf/issues",
   "scripts": {
     "build": "tsc --skipLibCheck",
     "types": "tsc --skipLibCheck --declaration --emitDeclarationOnly",
@@ -23,14 +20,11 @@
     "preview": "nr format; vercel",
     "deploy": "nr format; vercel --prod",
     "release": "nr release:${1:-patch}",
-    "release:patch": "nr format; git commit -a -m '[patch]: prepare for release' --gpg-sign; nr bump patch; git push --follow-tags",
-    "release:minor": "nr format; git commit -a -m '[minor]: prepare for release' --gpg-sign; nr bump minor; git push --follow-tags",
-    "release:major": "nr format; git commit -a -m '[major]: prepare for release' --gpg-sign; nr bump major; git push --follow-tags",
     "bump": "pnpm version --sign-git-tag ${@:-patch}",
     "lint": "prettier --check '**/*.{ts,js,tsx,jsx,css,webmanifest}'",
     "format": "nr lint --write"
   },
-  "packageManager": "pnpm@6.31.0",
+  "packageManager": "pnpm@7.9.0",
   "prettier": {
     "printWidth": 120,
     "useTabs": true,
@@ -48,8 +42,7 @@
     "@types/marked": "4.0.1",
     "@types/node": "17.0.10",
     "@types/tinycolor2": "1.4.3",
-    "pnpm": "6.31.0",
-    "prettier": "2.5.1",
+    "prettier": "2.7.1",
     "prettier-plugin-sh": "0.8.1",
     "tslib": "2.3.1",
     "tsm": "2.2.1",
@@ -60,7 +53,7 @@
     "@vercel/node": "1.12.1",
     "lodash": "4.17.21",
     "marked": "4.0.10",
-    "simple-icons": "^6.11.0",
+    "simple-icons": "latest",
     "tinycolor2": "1.4.2"
   }
 }
