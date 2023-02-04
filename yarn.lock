@@ -416,9 +416,9 @@ has-yarn@^2.1.0:
   integrity sha512-UqBRqi4ju7T+TqGNdqAO0PaSVGsDGJUBQvk9eUWNGRY1CFGDzYhLWoM7JQEemnlvVcv/YEmc2wNW8BC24EnUsw==
 
 http-cache-semantics@^4.0.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/http-cache-semantics/-/http-cache-semantics-4.1.0.tgz#49e91c5cbf36c9b94bcfcd71c23d5249ec74e390"
-  integrity sha512-carPklcUh7ROWRK7Cv27RPtdhYhUsela/ue5/jKzjegVvXDqM2ILE9Q2BGn9JZJh1g87cp56su/FgQSzcWS8cQ==
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/http-cache-semantics/-/http-cache-semantics-4.1.1.tgz#abe02fcb2985460bf0323be664436ec3476a6d5a"
+  integrity sha512-er295DKPVsV82j5kw1Gjt+ADA/XYHsajl82cGNQG2eyoPkvgUhX+nDIyelzhIWbbsXP39EHcI6l5tYs2FYqYXQ==
 
 import-lazy@^2.1.0:
   version "2.1.0"
@@ -578,11 +578,6 @@ package-json@^6.3.0:
     registry-url "^5.0.0"
     semver "^6.2.0"
 
-pnpm@6.31.0:
-  version "6.31.0"
-  resolved "https://registry.yarnpkg.com/pnpm/-/pnpm-6.31.0.tgz#3b7cb0bfee9d621fdff3526a7e68799a9f7fbe83"
-  integrity sha512-YUCyLI2J2wQsHWgcRYR8wUrTWsE0E8GX46XKtdXcUiE0GJJYi5saRy2Y8BMfLtlDHshHLs2U/KO1e5gsftJTFA==
-
 prepend-http@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-2.0.0.tgz#e92434bfa5ea8c19f41cdfd401d741a3c819d897"
@@ -595,10 +590,10 @@ prettier-plugin-sh@0.8.1:
   dependencies:
     mvdan-sh "^0.5.0"
 
-prettier@2.5.1:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.5.1.tgz#fff75fa9d519c54cf0fce328c1017d94546bc56a"
-  integrity sha512-vBZcPRUR5MZJwoyi3ZoyQlc1rXeEck8KgeC9AwwOn+exuxLxq5toTRDTSaVrXHxelDMHy9zlicw8u66yxoSUFg==
+prettier@2.7.1:
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.7.1.tgz#e235806850d057f97bb08368a4f7d899f7760c64"
+  integrity sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==
 
 pump@^3.0.0:
   version "3.0.0"
@@ -663,10 +658,10 @@ signal-exit@^3.0.2:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.7.tgz#a9a1767f8af84155114eaabd73f99273c8f59ad9"
   integrity sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==
 
-simple-icons@^6.11.0:
-  version "6.11.0"
-  resolved "https://registry.yarnpkg.com/simple-icons/-/simple-icons-6.11.0.tgz#c3bf59de4172176d8be74793a987a6b81ce83f2e"
-  integrity sha512-z1OMDOA84AUcL3N+SMWloFPh9FQVUpFSROS5noaPrMKF/iuMlxySE8jEO35E1K295vX8qWPmEJzdXhGaI7KZJA==
+simple-icons@latest:
+  version "8.4.0"
+  resolved "https://registry.yarnpkg.com/simple-icons/-/simple-icons-8.4.0.tgz#43ba1efc0c42cad85ed3c8baf28d156708678e62"
+  integrity sha512-vDaxR7CFRwkqBkYVhTli4rKS0/TdAUVvaCuQ3AKQbV8N+TYYy8LKaeJdXwOo5RlJZdUzsnHChaktcYhIk8vRow==
 
 source-map-support@^0.5.17:
   version "0.5.21"
